@@ -1,5 +1,6 @@
 import { UserStatus } from './enum/userStatus';
 import { BaseTimeEntity } from '../BaseTimeEntity';
+import { UserRole } from './enum/userRole';
 
 export class UserEntity extends BaseTimeEntity {
   id: number;

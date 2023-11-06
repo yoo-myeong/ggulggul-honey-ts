@@ -1,7 +1,7 @@
 import { DateTimeUtil } from '../../../util/DateTimeUtil';
 
 export class PhoneAuthByToken {
-  private readonly expiredMinute = 5;
+  private readonly EXPIRED_MINUTE = 5;
 
   private id: number;
 
@@ -17,7 +17,7 @@ export class PhoneAuthByToken {
 
   certify(now: Date) {
     this.certified = true;
-    this.ttl = DateTimeUtil.DateAddMinute(now, this.expiredMinute);
+    this.ttl = DateTimeUtil.DateAddMinute(now, this.EXPIRED_MINUTE);
   }
 
   isExpired(now: Date) {

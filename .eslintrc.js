@@ -25,6 +25,7 @@ module.exports = {
     '@typescript-eslint/no-shadow': 'warn',
     'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'class-methods-use-this': 'off',
   },
   settings: {
     'import/resolver': {

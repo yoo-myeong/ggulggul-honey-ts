@@ -21,8 +21,10 @@ module.exports = {
       },
     ],
     'no-shadow': 'off',
+    'no-underscore-dangle': 'off',
     '@typescript-eslint/no-shadow': 'warn',
     'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
   settings: {
     'import/resolver': {

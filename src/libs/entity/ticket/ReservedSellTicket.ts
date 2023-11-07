@@ -10,10 +10,12 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { Expose } from 'class-transformer';
-import { DateTimeUtil } from '../../../libs/util/DateTimeUtil';
+import { Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { DateTimeUtil } from '../../util/DateTimeUtil';
+import { Of } from '../../util/Of';
 
-export class ReservedSellTicketCmd {
+@Entity()
+export class ReservedSellTicket {
   private VALID_SELL_DIFF_HOURS = 48;
 
   private VALID_APPLY_DIFF_HOURS_TO_SELL_DATE = 24;
@@ -21,6 +23,9 @@ export class ReservedSellTicketCmd {
   private VALID_APPLY_DIFF_HOURS_TO_NOW = 1;
 
   private RAFFLE_DIFF_HOURS_TO_APPLY_END = 1;
+
+  @PrimaryGeneratedColumn()
+  private id: number;
 
   @IsString()
   @IsNotEmpty()
@@ -58,10 +63,7 @@ export class ReservedSellTicketCmd {
   @IsDate()
   private applyEndDate: Date;
 
-  @Expose()
-  get raffleDate() {
-    return DateTimeUtil.DateAddHours(this.applyEndDate, this.RAFFLE_DIFF_HOURS_TO_APPLY_END);
-  }
+  private raffleDate: Date;
 
   private validateSalePrice() {
     if (!(this.salePrice < this.originPrice)) {
@@ -84,10 +86,31 @@ export class ReservedSellTicketCmd {
     }
   }
 
-  public validate() {
+  private validate() {
     const now = new Date();
     this.validateSalePrice();
     this.validateSellDate(now);
     this.validateApplyEndDate(now);
+  }
+
+  static create(params: {
+    explanation: string;
+    originPrice: number;
+    salePrice: number;
+    title: string;
+    quantity: number;
+    imageUrls: string[];
+    sellDate: Date;
+    applyEndDate: Date;
+  }) {
+    const reservedSellTicket = Of(this, params);
+    reservedSellTicket.raffleDate = DateTimeUtil.DateAddHours(
+      reservedSellTicket.applyEndDate,
+      reservedSellTicket.RAFFLE_DIFF_HOURS_TO_APPLY_END,
+    );
+
+    reservedSellTicket.validate();
+
+    return reservedSellTicket;
   }
 }

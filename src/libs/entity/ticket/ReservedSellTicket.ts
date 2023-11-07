@@ -13,9 +13,10 @@ import {
 import { Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { DateTimeUtil } from '../../util/DateTimeUtil';
 import { Of } from '../../util/Of';
+import { BaseTimeEntity } from '../BaseTimeEntity';
 
 @Entity()
-export class ReservedSellTicket {
+export class ReservedSellTicket extends BaseTimeEntity {
   private VALID_SELL_DIFF_HOURS = 48;
 
   private VALID_APPLY_DIFF_HOURS_TO_SELL_DATE = 24;

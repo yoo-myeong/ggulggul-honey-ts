@@ -25,45 +25,45 @@ export class ReservedSellTicket {
   private RAFFLE_DIFF_HOURS_TO_APPLY_END = 1;
 
   @PrimaryGeneratedColumn()
-  private id: number;
+  id: number;
 
   @IsString()
   @IsNotEmpty()
   @Min(20)
-  private explanation: string;
+  explanation: string;
 
   @IsNumber()
   @IsPositive()
   @IsDivisibleBy(100)
-  private originPrice: number;
+  originPrice: number;
 
   @IsNumber()
   @IsPositive()
   @IsDivisibleBy(100)
-  private salePrice: number;
+  salePrice: number;
 
   @IsString()
   @IsNotEmpty()
   @Min(1)
-  private title: string;
+  title: string;
 
   @IsNumber()
   @Max(5)
   @IsPositive()
   @IsInt()
-  private quantity: number;
+  quantity: number;
 
   @IsString({ each: true })
   @IsOptional()
-  private imageUrls: string[];
+  imageUrls: string[];
 
   @IsDate()
-  private sellDate: Date;
+  sellDate: Date;
 
   @IsDate()
-  private applyEndDate: Date;
+  applyEndDate: Date;
 
-  private raffleDate: Date;
+  raffleDate: Date;
 
   private validateSalePrice() {
     if (!(this.salePrice < this.originPrice)) {

@@ -14,13 +14,13 @@ import { Expose } from 'class-transformer';
 import { DateTimeUtil } from '../../../libs/util/DateTimeUtil';
 
 export class ReservedSellTicketCmd {
-  private VALID_SELL_DIFF_TIME = 48;
+  private VALID_SELL_DIFF_HOURS = 48;
 
-  private VALID_APPLY_DIFF_TIME_TO_SELL_DATE = 24;
+  private VALID_APPLY_DIFF_HOURS_TO_SELL_DATE = 24;
 
-  private VALID_APPLY_DIFF_TIME_TO_NOW = 1;
+  private VALID_APPLY_DIFF_HOURS_TO_NOW = 1;
 
-  private RAFFLE_DIFF_TIME_TO_APPLY_END = 1;
+  private RAFFLE_DIFF_HOURS_TO_APPLY_END = 1;
 
   @IsString()
   @IsNotEmpty()
@@ -60,7 +60,7 @@ export class ReservedSellTicketCmd {
 
   @Expose()
   get raffleDate() {
-    return DateTimeUtil.DateAddHours(this.applyEndDate, this.RAFFLE_DIFF_TIME_TO_APPLY_END);
+    return DateTimeUtil.DateAddHours(this.applyEndDate, this.RAFFLE_DIFF_HOURS_TO_APPLY_END);
   }
 
   private validateSalePrice() {
@@ -70,15 +70,15 @@ export class ReservedSellTicketCmd {
   }
 
   private validateSellDate(now: Date) {
-    if (DateTimeUtil.DateAddHours(now, this.VALID_SELL_DIFF_TIME) > this.sellDate) {
+    if (DateTimeUtil.DateAddHours(now, this.VALID_SELL_DIFF_HOURS) > this.sellDate) {
       throw new Error('invalid sell date');
     }
   }
 
   private validateApplyEndDate(now: Date) {
     if (
-      this.applyEndDate < DateTimeUtil.DateAddHours(now, this.VALID_APPLY_DIFF_TIME_TO_NOW) ||
-      this.applyEndDate > DateTimeUtil.DateSubtractHours(this.sellDate, this.VALID_APPLY_DIFF_TIME_TO_SELL_DATE)
+      this.applyEndDate < DateTimeUtil.DateAddHours(now, this.VALID_APPLY_DIFF_HOURS_TO_NOW) ||
+      this.applyEndDate > DateTimeUtil.DateSubtractHours(this.sellDate, this.VALID_APPLY_DIFF_HOURS_TO_SELL_DATE)
     ) {
       throw new Error('invalid apply end date');
     }

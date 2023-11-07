@@ -66,6 +66,10 @@ export class ReservedSellTicket extends BaseTimeEntity {
 
   raffleDate: Date;
 
+  setRaffleDate() {
+    this.raffleDate = DateTimeUtil.DateAddHours(this.applyEndDate, this.RAFFLE_DIFF_HOURS_TO_APPLY_END);
+  }
+
   private validateSalePrice() {
     if (!(this.salePrice < this.originPrice)) {
       throw new Error('invalid sale price');
@@ -105,10 +109,8 @@ export class ReservedSellTicket extends BaseTimeEntity {
     applyEndDate: Date;
   }) {
     const reservedSellTicket = Of(this, params);
-    reservedSellTicket.raffleDate = DateTimeUtil.DateAddHours(
-      reservedSellTicket.applyEndDate,
-      reservedSellTicket.RAFFLE_DIFF_HOURS_TO_APPLY_END,
-    );
+
+    reservedSellTicket.setRaffleDate();
 
     reservedSellTicket.validate();
 

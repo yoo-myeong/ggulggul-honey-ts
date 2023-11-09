@@ -11,7 +11,7 @@ export class UserPointDomain {
 
   private modifiedBy?: string;
 
-  private setPoint(changePoint: number) {
+  private setPointBy(changePoint: number) {
     const remainPoint = this.point + changePoint;
     if (remainPoint < 0) {
       throw new Error('가능한 포인트 사용량이 아닙니다.');
@@ -32,7 +32,7 @@ export class UserPointDomain {
     const { changePoint, modifiedBy } = params;
     this.validateChangePoint(changePoint);
 
-    this.setPoint(changePoint);
+    this.setPointBy(changePoint);
     this.modifiedBy = modifiedBy;
   }
 }

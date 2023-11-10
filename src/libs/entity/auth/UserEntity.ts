@@ -1,24 +1,36 @@
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IsEmail, IsString } from 'class-validator';
 import { UserStatus } from './enum/userStatus';
 import { BaseTimeEntity } from '../BaseTimeEntity';
 import { UserRole } from './enum/userRole';
 
+@Entity()
 export class UserEntity extends BaseTimeEntity {
+  @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
   email: string;
 
+  @Column()
   password: string;
 
+  @Column()
   firstName: string;
 
+  @Column()
   lastName: string;
 
+  @Column()
   status: UserStatus;
 
+  @Column()
   nickname: string;
 
+  @Column()
   phone: string;
 
+  @Column()
   role: UserRole;
 
   static signUp(ctx: {

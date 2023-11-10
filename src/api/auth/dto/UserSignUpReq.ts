@@ -1,8 +1,8 @@
 import { IsEmail, IsEnum, IsString, Matches, MaxLength, MinLength } from 'class-validator';
-import { UserEntity } from '../../../libs/entity/user/userEntity';
-import { UserStatus } from '../../../libs/entity/user/enum/userStatus';
+import { UserEntity } from '../../../libs/entity/auth/UserEntity';
+import { UserStatus } from '../../../libs/entity/auth/enum/userStatus';
 import { PhoneAuthByToken } from '../../../libs/repository/user/dto/PhoneAuthByToken';
-import { UserRole } from '../../../libs/entity/user/enum/userRole';
+import { UserRole } from '../../../libs/entity/auth/enum/userRole';
 
 export class UserSignUpReq {
   @IsEmail()
@@ -25,6 +25,7 @@ export class UserSignUpReq {
   @IsEnum(UserStatus)
   private status: string;
 
+  @IsString()
   @Matches(/^[0-9]{3}-+[0-9]{4}-+[0-9]{4}$/)
   private phone: string;
 
@@ -36,7 +37,7 @@ export class UserSignUpReq {
     const { phoneAuth, nickname, status, role } = params;
     this.checkSignupAble(phoneAuth);
 
-    const user = UserEntity.signUp({
+    return UserEntity.signUp({
       email: this.email,
       password: this.password,
       firstName: this.firstName,
@@ -46,7 +47,5 @@ export class UserSignUpReq {
       phone: this.phone,
       role,
     });
-
-    return user;
   }
 }

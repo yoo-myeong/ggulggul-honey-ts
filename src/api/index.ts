@@ -4,15 +4,12 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import { Container } from 'inversify';
 import { errorHandler } from './filter/errorHandler';
 import { Config } from './config/config';
-
-const container = new Container();
-
-// container.bind<FooService>('FooService').to(FooService);
+import { container } from './config/iocContainer';
 
 const server = new InversifyExpressServer(container);
 server
   .setConfig(async (app) => {
-    await require('./auth/kakao/kakaoController');
+    await require('./auth/kakao/KakaoController');
 
     app.set('trust proxy', true);
     app.use(express.json());

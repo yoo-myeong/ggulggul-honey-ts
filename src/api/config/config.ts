@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { injectable } from 'inversify';
 
 let envPath: string;
 switch (process.env.NODE_ENV) {
@@ -12,6 +13,7 @@ switch (process.env.NODE_ENV) {
 
 dotenv.config({ path: envPath });
 
+@injectable()
 export class Config {
   value: unknown;
 

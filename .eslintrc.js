@@ -26,6 +26,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': 'off',
     'class-methods-use-this': 'off',
+    'global-require': 'off',
   },
   settings: {
     'import/resolver': {

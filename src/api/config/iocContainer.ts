@@ -1,7 +1,8 @@
 import { Container } from 'inversify';
-import { Config } from './config';
 import { InjectType } from './InjectType';
+import { GoogleTokenHttpClient } from '../oauth/google/GoogleTokenHttpClient';
 
 export const container = new Container();
 
-container.bind<Config>(InjectType.Config).to(Config);
+// google
+container.bind<GoogleTokenHttpClient>(InjectType.GoogleTokenHttpClient).to(GoogleTokenHttpClient);

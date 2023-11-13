@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { errorHandler } from './filter/errorHandler';
-import { APP_PORT, Config } from './config/config';
+import { APP_PORT } from './config/config';
 import { container } from './config/iocContainer';
 
 const server = new InversifyExpressServer(container);

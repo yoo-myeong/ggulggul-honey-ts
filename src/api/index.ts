@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { errorHandler } from './filter/errorHandler';
-import { APP_PORT } from './config/config';
+import { APP } from './config/configContainer';
 import { container } from './config/iocContainer';
 
 const server = new InversifyExpressServer(container);
@@ -19,7 +19,7 @@ server
   });
 
 const app = server.build();
-const port = APP_PORT;
+const port = APP.APP_PORT;
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`server started on ${port}`);

@@ -1,11 +1,19 @@
 import axios, { Axios, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { injectable, unmanaged } from 'inversify';
 
+@injectable()
 export class BaseHttpClient {
   private readonly baseUrl: string;
 
   private readonly http: Axios;
 
-  constructor(props: { baseUrl: string; header?: Record<string, unknown> }) {
+  constructor(
+    @unmanaged()
+    props: {
+      baseUrl: string;
+      header?: Record<string, unknown>;
+    },
+  ) {
     this.http = axios.create({
       baseURL: props.baseUrl,
       headers: props.header || {

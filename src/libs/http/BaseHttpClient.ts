@@ -19,7 +19,6 @@ export class BaseHttpClient {
       headers: props.header || {
         'Content-Type': 'application/json',
       },
-      validateStatus: () => true,
     });
   }
 

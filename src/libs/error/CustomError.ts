@@ -12,7 +12,7 @@ export class CustomError extends Error {
     this._error = err;
   }
 
-  public static isCustomError(error: Error) {
+  public static isCustomError(error: Error): error is CustomError {
     return error.name === this.constructor.name;
   }
 }

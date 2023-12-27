@@ -1,4 +1,5 @@
 import { ErrorCode } from './errorCode';
+import { statusCodeByErrorCode } from './statusCodeByErrorCode';
 
 export class CustomError extends Error {
   private readonly _code: ErrorCode;
@@ -10,6 +11,10 @@ export class CustomError extends Error {
     this.name = this.constructor.name;
     this._code = code;
     this._error = err;
+  }
+
+  get statusCode() {
+    return statusCodeByErrorCode[this._code];
   }
 
   public static isCustomError(error: Error): error is CustomError {

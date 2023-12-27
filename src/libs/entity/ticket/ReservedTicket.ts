@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { DateTimeUtil } from '../../util/DateTimeUtil';
-import { Of } from '../../util/Of';
+import { of } from '../../util/of';
 import { BaseTimeEntity } from '../BaseTimeEntity';
 
 @Entity()
@@ -57,17 +57,8 @@ export class ReservedTicket extends BaseTimeEntity {
     this.raffleDate = DateTimeUtil.DateAddHours(this.applyEndDate, this.RAFFLE_DIFF_HOURS_TO_APPLY_END);
   }
 
-  static create(params: {
-    explanation: string;
-    originPrice: number;
-    salePrice: number;
-    title: string;
-    quantity: number;
-    imageUrls: string[];
-    sellDate: Date;
-    applyEndDate: Date;
-  }) {
-    const reservedTicket = Of(this, params);
+  static async create(params: ReservedTicket) {
+    const reservedTicket = await of(this, params);
 
     reservedTicket.setRaffleDate();
 

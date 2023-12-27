@@ -11,7 +11,7 @@ import {
   Min,
 } from 'class-validator';
 import { DateTimeUtil } from '../../../libs/util/DateTimeUtil';
-import { Of } from '../../../libs/util/Of';
+import { of } from '../../../libs/util/of';
 
 export class CreateReservedTicketReq {
   private VALID_SELL_DIFF_HOURS = 48;
@@ -84,17 +84,8 @@ export class CreateReservedTicketReq {
     this.validateApplyEndDate(now);
   }
 
-  static create(params: {
-    explanation: string;
-    originPrice: number;
-    salePrice: number;
-    title: string;
-    quantity: number;
-    imageUrls: string[];
-    sellDate: Date;
-    applyEndDate: Date;
-  }) {
-    const req = Of(this, params);
+  static async create(params: CreateReservedTicketReq) {
+    const req = await of(this, params);
     req.validate();
 
     return req;

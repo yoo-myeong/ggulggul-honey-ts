@@ -1,6 +1,6 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
-import { CustomError } from '../error/CustomError';
+import { CustomError } from '../../api/filter/CustomError';
 import { ErrorCode } from '../error/errorCode';
 
 export async function of<T extends object, V>(plain: ClassConstructor<T>, instance: V) {

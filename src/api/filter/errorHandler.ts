@@ -1,6 +1,7 @@
 import { ErrorRequestHandler } from 'express';
 import { CustomError } from './CustomError';
 
+// eslint-disable-next-line
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (CustomError.isCustomError(err)) {
     res.status(err.statusCode);

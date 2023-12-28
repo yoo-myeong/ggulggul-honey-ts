@@ -1,15 +1,16 @@
+/* eslint-disable import/no-unresolved */
+
 import 'reflect-metadata';
 import express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
+import serverless from 'serverless-http';
 import { errorHandler } from './filter/errorHandler';
-import { APP } from './config/configContainer';
 import { container } from './config/iocContainer';
+import './mall/mall.controller';
 
 const server = new InversifyExpressServer(container);
 server
   .setConfig(async (app) => {
-    await require('./oauth/google/GoogleController');
-
     app.set('trust proxy', true);
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
@@ -19,8 +20,5 @@ server
   });
 
 const app = server.build();
-const port = APP.APP_PORT;
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`server started on ${port}`);
-});
+
+export const handler = serverless(app);

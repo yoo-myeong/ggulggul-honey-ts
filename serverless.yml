@@ -1,0 +1,25 @@
+service: gh
+frameworkVersion: '3'
+
+custom:
+  serverless-offline:
+    httpPort: 4000
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  api:
+    handler: ./dist/api/index.handler
+    events:
+      - httpApi: '*'
+
+plugins:
+  - serverless-offline
+
+layers:
+  libs:
+    path: ./dist/libs
+    name: libs
+    retain: false

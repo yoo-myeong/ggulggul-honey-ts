@@ -14,7 +14,7 @@ export class UserPointDomain {
     return of(this, params);
   }
 
-  private setPointBy(changePoint: number, modifiedBy: string) {
+  private setPoint(changePoint: number, modifiedBy: string) {
     const remainPoint = this._point + changePoint;
     if (remainPoint < 0) {
       throw new CustomError(ErrorCode.BAD_REQUEST, '포인트는 음수가 될 수 없습니다.');
@@ -37,6 +37,6 @@ export class UserPointDomain {
     const { changePoint, modifiedBy } = params;
     this.validateChangePoint(changePoint);
 
-    this.setPointBy(changePoint, modifiedBy);
+    this.setPoint(changePoint, modifiedBy);
   }
 }

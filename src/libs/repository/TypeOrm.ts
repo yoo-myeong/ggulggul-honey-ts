@@ -4,12 +4,14 @@ import path from 'path';
 export class TypeOrm {
   private static dataSource: DataSource;
 
-  public static connect(ctx: DataSourceOptions) {
+  public static async connect(ctx: DataSourceOptions) {
     const entityPath = path.join(__dirname, '../../../src/libs/entity/**/*.ts');
     this.dataSource = new DataSource({
       ...ctx,
       entities: [entityPath],
     });
+
+    await this.dataSource.initialize();
   }
 
   public static getRepository(entity: EntityTarget<ObjectLiteral>) {

@@ -5,13 +5,13 @@ import express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import serverless from 'serverless-http';
 import { errorHandler } from './filter/errorHandler';
-import { container } from './config/iocContainer';
+import { getContainer } from './config/iocContainer';
 
 import './test/test.controller';
 import { TypeOrm } from '../libs/repository/TypeOrm';
 import { MYSQL } from './config/configContainer';
 
-const server = new InversifyExpressServer(container);
+const server = new InversifyExpressServer(getContainer());
 server
   .setConfig(async (app) => {
     await TypeOrm.connect(MYSQL);

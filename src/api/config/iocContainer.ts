@@ -1,11 +1,15 @@
 import { Container } from 'inversify';
 import { TestService } from '../test/test.service';
-import { TestRepository } from '../../libs/repository/test/testRepository';
+import { TestCustomRepository } from '../../libs/repository/test/test.custom.repository';
 
-export const container = new Container();
+export const getContainer = () => {
+  const container = new Container();
 
-// service
-container.bind(TestService).to(TestService);
+  // service
+  container.bind(TestService).to(TestService);
 
-// respository
-container.bind(TestRepository).to(TestRepository);
+  // custom respository
+  container.bind(TestCustomRepository).to(TestCustomRepository);
+
+  return container;
+};

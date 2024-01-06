@@ -1,10 +1,10 @@
 import { controller, httpGet } from 'inversify-express-utils';
+import { inject } from 'inversify';
 import { TestService } from './test.service';
-import { lazyInject } from '../config/iocContainer';
 
 @controller('/test')
 export class TestController {
-  @lazyInject(TestService)
+  @inject(TestService)
   private testService: TestService;
 
   static build(ctx: { testService: TestService }) {

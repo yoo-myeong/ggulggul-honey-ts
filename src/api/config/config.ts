@@ -1,12 +1,12 @@
 import dotenv from 'dotenv';
+import path from 'path';
 
 let envPath: string;
 switch (process.env.NODE_ENV) {
   case 'local':
-    envPath = './.env.api.local';
-    break;
+  case 'test':
   default:
-    envPath = './.env.api.production';
+    envPath = path.join(__dirname, '../../../../.env.api.local');
     break;
 }
 

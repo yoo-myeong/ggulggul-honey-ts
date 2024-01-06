@@ -43,7 +43,7 @@ export class ReservedTicket extends BaseTimeEntity {
   imageUrls: string[];
 
   @Column({
-    type: 'timestamptz',
+    type: 'timestamp',
   })
   sellDate: Date;
 

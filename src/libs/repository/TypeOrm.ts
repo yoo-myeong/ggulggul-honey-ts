@@ -4,10 +4,10 @@ import path from 'path';
 export class TypeOrm {
   private static dataSource: DataSource;
 
-  public static async connect(ctx: DataSourceOptions) {
-    const entityPath = path.join(__dirname, '../../../src/libs/entity/**/*.ts');
+  public static async connect(ctx: unknown) {
+    const entityPath = path.join(__dirname, '../../../src/libs/**/*.{t,j}s');
     this.dataSource = new DataSource({
-      ...ctx,
+      ...(ctx as DataSourceOptions),
       entities: [entityPath],
     });
 

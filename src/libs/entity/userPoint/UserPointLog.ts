@@ -2,7 +2,6 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { UserPointModifier } from './enum/UserPointModifier';
 import { UserPointLogStatus } from './enum/UserPointLogStatus';
 
-@Entity()
 export class UserPointLog {
   @PrimaryGeneratedColumn()
   id: number;

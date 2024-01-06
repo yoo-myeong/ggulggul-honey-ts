@@ -1,7 +1,7 @@
 import { UserPointDomainUseParams } from './dto/UserPointDomainUseParams';
-import { of } from '../../../libs/util/of';
-import { CustomError } from '../../filter/CustomError';
-import { ErrorCode } from '../../../libs/error/errorCode';
+import { of } from '../../util/of';
+import { CustomError } from '../../../api/filter/CustomError';
+import { ErrorCode } from '../../error/errorCode';
 
 export class UserPointDomain {
   private readonly MAX_USABLE_POINT = 2000;

@@ -1,5 +1,5 @@
-import { UserPointDomain } from '../../../../../src/api/userPoint/domain/UserPoint';
-import { UserPointDomainUseParams } from '../../../../../src/api/userPoint/domain/dto/UserPointDomainUseParams';
+import { UserPointDomain } from '../../../../../src/libs/domain/userPoint/UserPoint';
+import { UserPointDomainUseParams } from '../../../../../src/libs/domain/userPoint/dto/UserPointDomainUseParams';
 import { CustomError } from '../../../../../src/api/filter/CustomError';
 
 describe('UserPointDomain', () => {

@@ -11,7 +11,7 @@ provider:
 
 functions:
   api:
-    handler: ./dist/api/index.handler
+    handler: ./dist/src/api/index.handler
     events:
       - httpApi: '*'
 

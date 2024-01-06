@@ -6,7 +6,8 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import serverless from 'serverless-http';
 import { errorHandler } from './filter/errorHandler';
 import { container } from './config/iocContainer';
-import './mall/mall.controller';
+
+import './test/test.controller';
 
 const server = new InversifyExpressServer(container);
 server

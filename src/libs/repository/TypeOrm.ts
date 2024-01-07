@@ -14,8 +14,8 @@ export class TypeOrm {
     await this.dataSource.initialize();
   }
 
-  public static getRepository(entity: EntityTarget<ObjectLiteral>) {
-    return this.dataSource.getRepository(entity);
+  public static getRepository<T extends ObjectLiteral>(entity: EntityTarget<T>) {
+    return this.dataSource.getRepository<T>(entity);
   }
 
   public static async query<T>(sql: string, params?: unknown[]) {

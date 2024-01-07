@@ -1,13 +1,14 @@
 import { Repository } from 'typeorm';
 import { TypeOrm } from '../../../../src/libs/repository/TypeOrm';
 import { MallEntity } from '../../../../src/libs/entity/mall/MallEntity';
+import { getMySqlTypeOrmTestOption } from '../../getMySqlTypeOrmTestOption';
 
 describe('MallService', () => {
   let mallRepository: Repository<MallEntity>;
 
   beforeEach(async () => {
     await TypeOrm.connect(getMySqlTypeOrmTestOption());
-    mallRepository = TypeOrm.getRepository(MallEntity);
+    mallRepository = TypeOrm.getRepository<MallEntity>(MallEntity);
   });
 
   it('id를 통해 매장 정보를 조회한다', () => {

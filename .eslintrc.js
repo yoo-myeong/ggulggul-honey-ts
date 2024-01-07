@@ -30,6 +30,7 @@ module.exports = {
     'no-useless-constructor': 'off',
     'no-empty-function': 'off',
     'lines-between-class-members': 'off',
+    'no-return-await': 'off',
   },
   settings: {
     'import/resolver': {

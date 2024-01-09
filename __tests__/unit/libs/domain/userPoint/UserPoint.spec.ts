@@ -5,7 +5,6 @@ describe('UserPointDomain', () => {
   it('보유한 포인트보다 큰 포인트를 사용할 수 없다', async () => {
     const point = 1000;
     const sut = await UserPointDomain.from({
-      userPointId: 1,
       point,
     });
 
@@ -15,10 +14,21 @@ describe('UserPointDomain', () => {
   it('사용하려는 포인트가 사용가능 최대 포인트(2000)을 넘으면 에러를 던진다', async () => {
     const point = 3000;
     const sut = await UserPointDomain.from({
-      userPointId: 1,
       point,
     });
 
     expect(() => sut.use(2500)).toThrow(CustomError);
+  });
+
+  it('포인트 사용', async () => {
+    const point = 3000;
+    const sut = await UserPointDomain.from({
+      point,
+    });
+    const usingPoint = 1000;
+
+    const afterPoint = sut.use(1000);
+
+    expect(afterPoint).toBe(point - usingPoint);
   });
 });

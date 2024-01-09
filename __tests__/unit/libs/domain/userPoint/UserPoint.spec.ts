@@ -2,33 +2,94 @@ import { UserPointDomain } from '../../../../../src/libs/domain/userPoint/UserPo
 import { CustomError } from '../../../../../src/api/filter/CustomError';
 
 describe('UserPointDomain', () => {
-  it('보유한 포인트보다 큰 포인트를 사용할 수 없다', async () => {
-    const point = 1000;
-    const sut = await UserPointDomain.from({
-      point,
+  describe('use point', () => {
+    it('보유한 포인트보다 큰 포인트를 사용할 수 없다', async () => {
+      const point = 1000;
+      const sut = await UserPointDomain.from({
+        point,
+      });
+
+      expect(() => sut.use(150)).toThrow(CustomError);
     });
 
-    expect(() => sut.use(150)).toThrow(CustomError);
+    it('사용하려는 포인트가 사용가능 최대 포인트(2000)을 넘으면 에러를 던진다', async () => {
+      const point = 3000;
+      const sut = await UserPointDomain.from({
+        point,
+      });
+
+      expect(() => sut.use(2500)).toThrow(CustomError);
+    });
+
+    it('사용하려는 포인트는 500원 단위이어야 한다', async () => {
+      const point = 3000;
+      const sut = await UserPointDomain.from({
+        point,
+      });
+
+      expect(() => sut.use(600)).toThrow(CustomError);
+    });
+
+    it('사용하고자 하는 포인트가 음수값이 될 수 없다', async () => {
+      const point = 3000;
+      const sut = await UserPointDomain.from({
+        point,
+      });
+
+      expect(() => sut.use(-1000)).toThrow(CustomError);
+    });
+
+    it('포인트 사용', async () => {
+      const point = 3000;
+      const sut = await UserPointDomain.from({
+        point,
+      });
+      const usingPoint = 1000;
+
+      const afterPoint = sut.use(1000);
+
+      expect(afterPoint).toBe(point - usingPoint);
+    });
   });
 
-  it('사용하려는 포인트가 사용가능 최대 포인트(2000)을 넘으면 에러를 던진다', async () => {
-    const point = 3000;
-    const sut = await UserPointDomain.from({
-      point,
+  describe('add point', () => {
+    it('적립하려는 포인트가 적립가능 최대 포인트(2000)을 넘으면 에러를 던진다', async () => {
+      const point = 3000;
+      const sut = await UserPointDomain.from({
+        point,
+      });
+
+      expect(() => sut.add(2500)).toThrow(CustomError);
     });
 
-    expect(() => sut.use(2500)).toThrow(CustomError);
-  });
+    it('적립하려는 포인트는 100원 단위이어야 한다', async () => {
+      const point = 3000;
+      const sut = await UserPointDomain.from({
+        point,
+      });
 
-  it('포인트 사용', async () => {
-    const point = 3000;
-    const sut = await UserPointDomain.from({
-      point,
+      expect(() => sut.use(150)).toThrow(CustomError);
     });
-    const usingPoint = 1000;
 
-    const afterPoint = sut.use(1000);
+    it('적립하고자 하는 포인트가 음수값이 될 수 없다', async () => {
+      const point = 3000;
+      const sut = await UserPointDomain.from({
+        point,
+      });
 
-    expect(afterPoint).toBe(point - usingPoint);
+      expect(() => sut.add(-1000)).toThrow(CustomError);
+    });
+
+    it('포인트 적립', async () => {
+      const point = 3000;
+      const sut = await UserPointDomain.from({
+        point,
+      });
+      const addingPoint = 1000;
+
+      const afterPoint = sut.add(1000);
+
+      expect(afterPoint).toBe(point + addingPoint);
+    });
   });
 });

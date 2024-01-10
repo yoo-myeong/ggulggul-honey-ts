@@ -14,6 +14,10 @@ export class TypeOrm {
     await this.dataSource.initialize();
   }
 
+  public static async disconnect() {
+    await this.dataSource.destroy();
+  }
+
   public static getRepository<T extends ObjectLiteral>(entity: EntityTarget<T>) {
     return this.dataSource.getRepository<T>(entity);
   }

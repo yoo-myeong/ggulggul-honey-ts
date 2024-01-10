@@ -24,4 +24,7 @@ export const MYSQL = {
   synchronize: !!(Config.cast('NODE_ENV').getString() === 'local' || 'test'),
   logging: !!(Config.cast('NODE_ENV').getString() === 'local' || 'test'),
   namingStrategy: new SnakeNamingStrategy(),
+  extra: {
+    decimalNumbers: true,
+  },
 };

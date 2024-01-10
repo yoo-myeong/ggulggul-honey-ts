@@ -17,8 +17,8 @@ describe('MallService', () => {
     await mallRepository.delete({});
   });
 
-  afterAll(() => {
-    mallRepository.clear();
+  afterAll(async () => {
+    await TypeOrm.disconnect();
   });
 
   it('id로 매장이 조회되지 않으면, 에러를 던진다', async () => {

@@ -1,8 +1,9 @@
-import { Column, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { BaseTimeEntity } from '../BaseTimeEntity';
 
+@Entity('user_point_log')
 @Unique(['userId', 'pointRequestId'])
-export class UserPointLog extends BaseTimeEntity {
+export class UserPointLogEntity extends BaseTimeEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -25,7 +26,7 @@ export class UserPointLog extends BaseTimeEntity {
 
   @Column({
     type: 'varchar',
-    comment: 'path',
+    comment: 'changing url path',
   })
   modifiedBy: string;
 }

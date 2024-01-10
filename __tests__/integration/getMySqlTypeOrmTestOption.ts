@@ -11,4 +11,7 @@ export const getMySqlTypeOrmTestOption = () => ({
   synchronize: true,
   logging: false,
   namingStrategy: new SnakeNamingStrategy(),
+  extra: {
+    decimalNumbers: true,
+  },
 });

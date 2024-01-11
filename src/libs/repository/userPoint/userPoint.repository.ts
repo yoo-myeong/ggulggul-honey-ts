@@ -3,6 +3,7 @@ import { TypeOrm } from '../TypeOrm';
 import { UserPointLogEntity } from '../../entity/userPoint/userPointLog.entity';
 import { CustomError } from '../../../api/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
+import { UserPointDomain } from '../../domain/userPoint/UserPoint';
 
 @injectable()
 export class UserPointRepository {
@@ -23,5 +24,9 @@ export class UserPointRepository {
     if (!userPointLog) throw new CustomError(ErrorCode.NOT_FOUND, 'userPointLog not found');
 
     return userPointLog.sum;
+  }
+
+  async insert(entity: UserPointLogEntity) {
+    return await this.userPointLogEntityRepository.insert(entity);
   }
 }

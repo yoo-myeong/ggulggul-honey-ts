@@ -1,5 +1,6 @@
 import { CustomError } from '../../../api/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
+import { UserPointLogEntity } from '../../entity/userPoint/userPointLog.entity';
 
 export class UserPointDomain {
   private readonly MAX_USABLE_POINT = 2000;
@@ -7,8 +8,9 @@ export class UserPointDomain {
   private readonly USE_POINT_DIVISIBLE_BY_VALUE = 500;
   private readonly ADD_POINT_DIVISIBLE_BY_VALUE = 100;
   private _point: number;
+  private _changPoint = 0;
 
-  static async from(params: { point: number }) {
+  static from(params: { point: number }) {
     const inst = new UserPointDomain();
     inst._point = params.point;
 
@@ -21,6 +23,7 @@ export class UserPointDomain {
       throw new CustomError(ErrorCode.BAD_REQUEST, '포인트는 음수가 될 수 없습니다.');
     }
     this._point += changePoint;
+    this._changPoint += changePoint;
   }
 
   private validateUsingPoint(changePoint: number) {
@@ -59,5 +62,15 @@ export class UserPointDomain {
     this.setPoint(addingPoint);
 
     return this._point;
+  }
+
+  toUserPointLogEntity(params: { userId: number; pointRequestId: string; modifiedBy: string }) {
+    const entity = new UserPointLogEntity();
+    entity.userId = params.userId;
+    entity.pointRequestId = params.pointRequestId;
+    entity.modifiedBy = params.modifiedBy;
+    entity.changePoint = this._changPoint;
+
+    return entity;
   }
 }

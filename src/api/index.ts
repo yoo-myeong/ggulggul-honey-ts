@@ -1,28 +1,19 @@
 /* eslint-disable import/no-unresolved */
-
 import 'reflect-metadata';
-import express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import serverless from 'serverless-http';
-import { errorHandler } from './filter/errorHandler';
 import { getContainer } from './config/iocContainer';
+import { MYSQL } from './config/configContainer';
+import { App } from './App';
 
 import './test/test.controller';
 import { TypeOrm } from '../libs/repository/TypeOrm';
-import { MYSQL } from './config/configContainer';
 
-const server = new InversifyExpressServer(getContainer());
-server
-  .setConfig(async (app) => {
-    await TypeOrm.connect(MYSQL);
-    app.set('trust proxy', true);
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
-  })
-  .setErrorConfig((app) => {
-    app.use(errorHandler);
-  });
+export const handler = async (event: never, context: never) => {
+  await TypeOrm.connect(MYSQL);
 
-const app = server.build();
+  const server = new InversifyExpressServer(getContainer());
+  const { app } = new App(server);
 
-export const handler = serverless(app);
+  return serverless(app)(event, context);
+};

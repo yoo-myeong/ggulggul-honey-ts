@@ -4,14 +4,10 @@ import { TestService } from './test.service';
 
 @controller('/test')
 export class TestController {
-  @inject(TestService)
-  private testService: TestService;
-
-  static build(ctx: { testService: TestService }) {
-    const inst = new TestController();
-    inst.testService = ctx.testService;
-    return inst;
-  }
+  constructor(
+    @inject(TestService)
+    private readonly testService: TestService,
+  ) {}
 
   @httpGet('/')
   get() {

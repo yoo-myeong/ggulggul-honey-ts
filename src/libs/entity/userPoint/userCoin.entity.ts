@@ -1,14 +1,20 @@
-import { Column } from 'typeorm';
+import { Column, Entity, Index } from 'typeorm';
 import { BaseTimeEntity } from '../BaseTimeEntity';
 import { CoinStatus } from './enum/CoinStatus';
 
+@Entity('user_coin')
+@Index(['userId, status'])
 export class UserCoinEntity extends BaseTimeEntity {
   @Column({
-    type: 'bigint',
+    type: 'int',
+    unsigned: true,
   })
   userId: number;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 30,
+  })
   status: CoinStatus;
 
   @Column({ nullable: true })

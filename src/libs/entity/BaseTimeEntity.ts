@@ -2,7 +2,8 @@ import { CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'type
 
 export class BaseTimeEntity {
   @PrimaryGeneratedColumn({
-    type: 'bigint',
+    type: 'int',
+    unsigned: true,
   })
   id: number;
 

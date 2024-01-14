@@ -5,7 +5,8 @@ import { BaseTimeEntity } from '../BaseTimeEntity';
 @Unique(['userId', 'pointRequestId'])
 export class UserPointLogEntity extends BaseTimeEntity {
   @Column({
-    type: 'bigint',
+    type: 'int',
+    unsigned: true,
   })
   userId: number;
 
@@ -18,11 +19,13 @@ export class UserPointLogEntity extends BaseTimeEntity {
 
   @Column({
     type: 'int',
+    unsigned: true,
   })
   changePoint: number;
 
   @Column({
     type: 'varchar',
+    length: 50,
     comment: 'changing url path',
   })
   modifiedBy: string;

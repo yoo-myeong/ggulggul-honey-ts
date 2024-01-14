@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { TypeOrm } from '../../../../src/libs/repository/TypeOrm';
-import { MallEntity } from '../../../../src/libs/entity/mall/MallEntity';
+import { MallEntity } from '../../../../src/libs/entity/mall/mall.entity';
 import { getMySqlTypeOrmTestOption } from '../../getMySqlTypeOrmTestOption';
 import { MallService } from '../../../../src/api/mall/mall.service';
 import { CustomError } from '../../../../src/api/filter/CustomError';

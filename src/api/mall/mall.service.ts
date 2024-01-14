@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { MallEntity } from '../../libs/entity/mall/MallEntity';
+import { MallEntity } from '../../libs/entity/mall/mall.entity';
 import { TypeOrm } from '../../libs/repository/TypeOrm';
 import { CustomError } from '../filter/CustomError';
 import { ErrorCode } from '../../libs/error/errorCode';

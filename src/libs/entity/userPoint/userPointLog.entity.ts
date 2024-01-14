@@ -1,12 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Column, Entity, Unique } from 'typeorm';
 import { BaseTimeEntity } from '../BaseTimeEntity';
 
 @Entity('user_point_log')
 @Unique(['userId', 'pointRequestId'])
 export class UserPointLogEntity extends BaseTimeEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
   @Column({
     type: 'bigint',
   })

@@ -1,10 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { DateTimeUtil } from '../../util/DateTimeUtil';
 import { of } from '../../util/of';
 import { BaseTimeEntity } from '../BaseTimeEntity';
 
-@Entity()
-export class ReservedTicket extends BaseTimeEntity {
+@Entity('reserved_ticket')
+export class ReservedTicketEntity extends BaseTimeEntity {
   private RAFFLE_DIFF_HOURS_TO_APPLY_END = 1;
 
   @Column({
@@ -57,7 +57,7 @@ export class ReservedTicket extends BaseTimeEntity {
     this.raffleDate = DateTimeUtil.DateAddHours(this.applyEndDate, this.RAFFLE_DIFF_HOURS_TO_APPLY_END);
   }
 
-  static async create(params: ReservedTicket) {
+  static async create(params: ReservedTicketEntity) {
     const reservedTicket = await of(this, params);
 
     reservedTicket.setRaffleDate();

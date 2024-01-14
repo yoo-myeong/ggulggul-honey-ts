@@ -1,14 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { IsEmail, IsString } from 'class-validator';
+import { Column } from 'typeorm';
 import { UserStatus } from './enum/userStatus';
 import { BaseTimeEntity } from '../BaseTimeEntity';
 import { UserRole } from './enum/userRole';
 
-// @Entity()
+// @Entity('user')
 export class UserEntity extends BaseTimeEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
   @Column()
   email: string;
 

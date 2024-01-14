@@ -6,7 +6,7 @@ export class UserPointDomain {
   private readonly MIN_USABLE_POINT = 1000;
   private readonly MAX_USABLE_POINT = 2000;
   private readonly MAX_ADDABLE_POINT = 2000;
-  private readonly USE_POINT_DIVISIBLE_BY_VALUE = 500;
+  private readonly USE_POINT_DIVISIBLE_BY_VALUE = 100;
   private readonly ADD_POINT_DIVISIBLE_BY_VALUE = 100;
   private _point: number;
   private _changPoint = 0;

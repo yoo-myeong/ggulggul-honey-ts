@@ -30,13 +30,13 @@ describe('UserPointDomain', () => {
       expect(() => sut.use(500)).toThrow(CustomError);
     });
 
-    it('사용하려는 포인트는 500원 단위이어야 한다', async () => {
+    it('사용하려는 포인트는 100원 단위이어야 한다', async () => {
       const point = 3000;
       const sut = await UserPointDomain.from({
         point,
       });
 
-      expect(() => sut.use(600)).toThrow(CustomError);
+      expect(() => sut.use(150)).toThrow(CustomError);
     });
 
     it('사용하고자 하는 포인트가 음수값이 될 수 없다', async () => {

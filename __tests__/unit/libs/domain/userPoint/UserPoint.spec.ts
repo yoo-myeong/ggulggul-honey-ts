@@ -12,13 +12,22 @@ describe('UserPointDomain', () => {
       expect(() => sut.use(150)).toThrow(CustomError);
     });
 
-    it('사용하려는 포인트가 사용가능 최대 포인트(2000)을 넘으면 에러를 던진다', async () => {
+    it('사용하려는 포인트가 사용가능 최대 포인트(2000)을 넘을 수 없다', async () => {
       const point = 3000;
       const sut = await UserPointDomain.from({
         point,
       });
 
       expect(() => sut.use(2500)).toThrow(CustomError);
+    });
+
+    it('사용하려는 포인트는 최소 사용포인트(1000)을 넘어야 한다.', async () => {
+      const point = 3000;
+      const sut = await UserPointDomain.from({
+        point,
+      });
+
+      expect(() => sut.use(500)).toThrow(CustomError);
     });
 
     it('사용하려는 포인트는 500원 단위이어야 한다', async () => {

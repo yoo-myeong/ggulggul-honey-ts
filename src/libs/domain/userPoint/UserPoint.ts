@@ -3,6 +3,7 @@ import { ErrorCode } from '../../error/errorCode';
 import { UserPointLogEntity } from '../../entity/userPoint/userPointLog.entity';
 
 export class UserPointDomain {
+  private readonly MIN_USABLE_POINT = 1000;
   private readonly MAX_USABLE_POINT = 2000;
   private readonly MAX_ADDABLE_POINT = 2000;
   private readonly USE_POINT_DIVISIBLE_BY_VALUE = 500;
@@ -26,12 +27,13 @@ export class UserPointDomain {
     this._changPoint += changePoint;
   }
 
-  private validateUsingPoint(changePoint: number) {
-    const absChangePoint = Math.abs(changePoint);
+  private validateUsingPoint(usingPoint: number) {
+    const absUsingPoint = Math.abs(usingPoint);
     const isUsable =
-      changePoint <= 0 &&
-      changePoint % this.USE_POINT_DIVISIBLE_BY_VALUE === 0 &&
-      absChangePoint <= this.MAX_USABLE_POINT;
+      usingPoint <= 0 &&
+      usingPoint % this.USE_POINT_DIVISIBLE_BY_VALUE === 0 &&
+      absUsingPoint <= this.MAX_USABLE_POINT &&
+      absUsingPoint >= this.MIN_USABLE_POINT;
 
     if (!isUsable) {
       throw new CustomError(ErrorCode.BAD_REQUEST, '포인트를 사용할 수 없습니다.');

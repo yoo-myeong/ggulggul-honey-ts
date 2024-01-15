@@ -1,6 +1,6 @@
 export class RandomPoint {
   // prettier-ignore
-  private readonly randomPoints = [
+  private static readonly randomPoints = [
     2000,
     1900, 1900,
     1800, 1800,
@@ -25,7 +25,7 @@ export class RandomPoint {
   ].sort(() => Math.random() - 0.5)
 
   // prettier-ignore
-  private readonly randomPointsForFirst = [
+  private static readonly randomPointsForFirst = [
     300, 300, 300, 300, 300, 300,
     400, 400, 400, 400, 400,
     500, 500, 500, 500,
@@ -33,11 +33,11 @@ export class RandomPoint {
     700,
   ].sort(() => Math.random() - 0.5);
 
-  generateRandomPoint() {
+  static generateRandomPoint() {
     return this.randomPoints[Math.floor(Math.random() * this.randomPoints.length)];
   }
 
-  generateRandomPointForFirst() {
+  static generateRandomPointForFirst() {
     return this.randomPointsForFirst[Math.floor(Math.random() * this.randomPointsForFirst.length)];
   }
 }

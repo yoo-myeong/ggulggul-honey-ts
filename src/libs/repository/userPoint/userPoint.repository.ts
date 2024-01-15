@@ -3,7 +3,7 @@ import { TypeOrm } from '../TypeOrm';
 import { UserPointLogEntity } from '../../entity/userPoint/userPointLog.entity';
 import { CustomError } from '../../../api/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
-import { UserPointDomain } from '../../domain/userPoint/UserPoint';
+import { UserPointDomain } from '../../domain/userPoint/userPoint.domain';
 
 @injectable()
 export class UserPointRepository {

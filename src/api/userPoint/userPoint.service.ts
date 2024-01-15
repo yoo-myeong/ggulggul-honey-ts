@@ -1,7 +1,7 @@
 import { inject } from 'inversify';
 import { UserPointRepository } from '../../libs/repository/userPoint/userPoint.repository';
 import { AddPointParam } from './dto/AddPointParam';
-import { UserPointDomain } from '../../libs/domain/userPoint/UserPoint';
+import { UserPointDomain } from '../../libs/domain/userPoint/userPoint.domain';
 
 export class UserPointService {
   constructor(

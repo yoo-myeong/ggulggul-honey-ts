@@ -13,8 +13,8 @@ describe('test', () => {
   let app: express.Application;
 
   beforeAll(async () => {
-    const server = new InversifyExpressServer(getApiContainer());
     await TypeOrm.connect(getMySqlTypeOrmTestOption());
+    const server = new InversifyExpressServer(getApiContainer());
     app = new App(server).app;
   });
 

@@ -1,13 +1,17 @@
-import { injectable } from 'inversify';
-import { IsNull } from 'typeorm';
+import { inject, injectable } from 'inversify';
+import { IsNull, Repository } from 'typeorm';
 import { TypeOrm } from '../TypeOrm';
 import { UserCoinEntity } from '../../entity/userPoint/userCoin.entity';
 import { CustomError } from '../../../api/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
+import { InjectType } from '../../config/InjectType';
 
 @injectable()
 export class UserCoinRepository {
-  constructor(private readonly userCoinEntityRepository = TypeOrm.getRepository<UserCoinEntity>(UserCoinEntity)) {}
+  constructor(
+    @inject(InjectType.UserCoinEntityRepository)
+    private readonly userCoinEntityRepository: Repository<UserCoinEntity>,
+  ) {}
 
   async getUsableOneAndCountAllByUserId(userId: number) {
     const [coin, count] = await Promise.all([

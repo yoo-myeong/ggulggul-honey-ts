@@ -9,7 +9,7 @@ import { ErrorCode } from '../../error/errorCode';
 export class UserCoinRepository {
   constructor(private readonly userCoinEntityRepository = TypeOrm.getRepository<UserCoinEntity>(UserCoinEntity)) {}
 
-  async getOneAndCountByUserId(userId: number) {
+  async getUsableOneAndCountAllByUserId(userId: number) {
     const [coin, count] = await Promise.all([
       this.userCoinEntityRepository.findOneBy({ userId, issuePoint: IsNull() }),
       this.userCoinEntityRepository.countBy({ userId }),

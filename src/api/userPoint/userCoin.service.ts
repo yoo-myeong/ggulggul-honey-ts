@@ -11,7 +11,7 @@ export class UserCoinService {
   ) {}
 
   async useCoin(userId: number) {
-    const { coin, count } = await this.userCoinRepository.getOneAndCountByUserId(userId);
+    const { coin, count } = await this.userCoinRepository.getUsableOneAndCountAllByUserId(userId);
     const point =
       count === this.TARGET_COUNT_FOR_FIRST
         ? RandomPoint.generateRandomPointForFirst()

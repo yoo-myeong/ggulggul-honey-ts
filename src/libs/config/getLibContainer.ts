@@ -5,9 +5,13 @@ import { UserCoinRepository } from '../repository/userPoint/userCoin.repository'
 import { InjectType } from './InjectType';
 import { TypeOrm } from '../repository/TypeOrm';
 import { TestEntity } from '../entity/test/test.entity';
+import { IoRedis } from '../redis/IoRedis';
 
 export const getLibContainer = () => {
   const container = new Container();
+
+  // redis
+  container.bind(InjectType.IoRedis).toConstantValue(IoRedis.redis);
 
   // entity repositry
   container.bind(InjectType.TestEntityRepository).toConstantValue(TypeOrm.getRepository(TestEntity));

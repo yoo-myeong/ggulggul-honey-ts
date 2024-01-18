@@ -3,4 +3,6 @@ export const InjectType = {
   MallEntityRepository: Symbol.for('MallEntityRepository'),
   UserCoinEntityRepository: Symbol.for('MallEntityRepository'),
   UserPointLogEntityRepository: Symbol.for('UserPointLogEntityRepository'),
+
+  IoRedis: Symbol.for('IoRedis'),
 };

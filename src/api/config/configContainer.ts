@@ -6,6 +6,8 @@ export const APP = {
   APP_PORT,
 };
 
+const isLocalOrTestEnv = () => !!(Config.cast('NODE_ENV').getString() === 'local' || 'test');
+
 export const GOOGLE = {
   GOOGLE_CLIENT_ID: Config.cast('GOOGLE_CLIENT_ID').getString(),
   GOOGLE_CLIENT_SECRET: Config.cast('GOOGLE_CLIENT_SECRET').getString(),
@@ -21,10 +23,17 @@ export const MYSQL = {
   password: Config.cast('MYSQL_PASSWORD').getString(),
   database: Config.cast('MYSQL_DATABASE').getString(),
   autoLoadEntities: true,
-  synchronize: !!(Config.cast('NODE_ENV').getString() === 'local' || 'test'),
-  logging: !!(Config.cast('NODE_ENV').getString() === 'local' || 'test'),
+  synchronize: isLocalOrTestEnv(),
+  logging: isLocalOrTestEnv(),
   namingStrategy: new SnakeNamingStrategy(),
   extra: {
     decimalNumbers: true,
   },
+};
+
+export const REDIS = {
+  host: Config.cast('REDIS_HOST').getString(),
+  port: Config.cast('REDIS_PORT').getParsedInt(),
+  username: isLocalOrTestEnv() ? Config.cast('REDIS_USERNAME').getString() : undefined,
+  password: isLocalOrTestEnv() ? Config.cast('REDIS_PASSWORD').getString() : undefined,
 };

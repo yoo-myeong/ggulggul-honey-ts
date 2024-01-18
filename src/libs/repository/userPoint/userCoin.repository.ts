@@ -14,7 +14,7 @@ export class UserCoinRepository {
       this.userCoinEntityRepository.findOneBy({ userId, issuePoint: IsNull() }),
       this.userCoinEntityRepository.countBy({ userId }),
     ]);
-    if (!coin) throw new CustomError(ErrorCode.NOT_FOUND, `no coin by userId (${userId})`);
+    if (!coin) throw new CustomError(ErrorCode.BAD_REQUEST, `no coin by userId (${userId})`);
 
     return {
       coin,

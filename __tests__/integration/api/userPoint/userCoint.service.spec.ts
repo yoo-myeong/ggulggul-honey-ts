@@ -4,6 +4,7 @@ import { getMySqlTypeOrmTestOption } from '../../getMySqlTypeOrmTestOption';
 import { UserCoinEntity } from '../../../../src/libs/entity/userPoint/userCoin.entity';
 import { UserCoinRepository } from '../../../../src/libs/repository/userPoint/userCoin.repository';
 import { UserCoinService } from '../../../../src/api/userPoint/userCoin.service';
+import { CustomError } from '../../../../src/api/filter/CustomError';
 
 describe('UserPointService', () => {
   let userCoinEntityRepository: Repository<UserCoinEntity>;
@@ -22,6 +23,12 @@ describe('UserPointService', () => {
 
   afterAll(async () => {
     await TypeOrm.disconnect();
+  });
+
+  it('사용 가능한 코인이 없으면 에러를 스로우한다', async () => {
+    const sut = new UserCoinService(userCoinRepository);
+
+    await expect(sut.useCoin(1)).rejects.toThrow(CustomError);
   });
 
   it('코인 첫 사용자는 300~700원이 당첨된다', async () => {

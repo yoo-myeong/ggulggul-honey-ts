@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
 import { TestService } from '../test/test.service';
-import { getLibContainer } from '../../libs/container/getLibContainer';
+import { getLibContainer } from '../../libs/config/getLibContainer';
 
 export const getApiContainer = () => {
   const container = new Container();

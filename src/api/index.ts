@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import serverless from 'serverless-http';
 import { getApiContainer } from './config/getApiContainer';
-import { MYSQL, REDIS } from './config/configContainer';
+import { MYSQL, REDIS } from '../libs/config/configContainer';
 import { App } from './App';
 
 import './test/test.controller';

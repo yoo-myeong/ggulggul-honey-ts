@@ -1,5 +1,5 @@
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-import { Config } from '../../libs/config/config';
+import { Config } from './config';
 
 const APP_PORT = Config.cast('APP_PORT').getParsedInt();
 export const APP = {

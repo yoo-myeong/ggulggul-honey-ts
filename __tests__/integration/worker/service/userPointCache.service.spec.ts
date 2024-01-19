@@ -27,6 +27,11 @@ describe('UserPointRedisService', () => {
     await redis.flushall();
   });
 
+  afterAll(async () => {
+    await TypeOrm.disconnect();
+    IoRedis.disconnect();
+  });
+
   it('캐시저장소에 유저의 포인트를 갱신하고 조회할 수 있다', async () => {
     const userPointRepository = new UserPointRepository(userPointLogEntityRepository);
     const sut = new UserPointCacheService(new CacheService(redis), userPointRepository);

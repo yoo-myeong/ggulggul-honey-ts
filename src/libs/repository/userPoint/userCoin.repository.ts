@@ -1,6 +1,5 @@
 import { inject, injectable } from 'inversify';
 import { IsNull, Repository } from 'typeorm';
-import { TypeOrm } from '../TypeOrm';
 import { UserCoinEntity } from '../../entity/userPoint/userCoin.entity';
 import { CustomError } from '../../../api/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
@@ -28,5 +27,12 @@ export class UserCoinRepository {
 
   async updateIssuePoint(id: number, point: number) {
     return await this.userCoinEntityRepository.update({ id }, { issuePoint: point });
+  }
+
+  async getUserCoinById(id: number) {
+    const userCoin = await this.userCoinEntityRepository.findOneBy({ id });
+    if (!userCoin) throw new CustomError(ErrorCode.NOT_FOUND, `invalid coinId(${id})`);
+
+    return userCoin;
   }
 }

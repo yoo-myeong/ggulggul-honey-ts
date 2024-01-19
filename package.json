@@ -52,6 +52,7 @@
     "serverless-offline": "^13.3.2",
     "sinon": "^17.0.1",
     "supertest": "^6.3.3",
-    "ts-jest": "^29.1.1"
+    "ts-jest": "^29.1.1",
+    "uuid": "^9.0.1"
   }
 }

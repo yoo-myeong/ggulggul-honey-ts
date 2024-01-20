@@ -15,7 +15,7 @@ export class UserPointRepository {
     private readonly userPointLogEntityRepository: Repository<UserPointLogEntity>,
   ) {}
 
-  async getUserPointSum(userIds: number[]) {
+  async getUserPointSumByUserIds(userIds: number[]) {
     const filteredDuplicateUserIds = userIds.filter((userId, idx) => userIds.indexOf(userId) === idx);
 
     const userPointLog = await this.userPointLogEntityRepository
@@ -32,5 +32,9 @@ export class UserPointRepository {
 
   async insert(entity: UserPointLogEntity) {
     return await this.userPointLogEntityRepository.insert(entity);
+  }
+
+  async bulkInsert(entities: UserPointLogEntity[]) {
+    return await this.userPointLogEntityRepository.insert(entities);
   }
 }

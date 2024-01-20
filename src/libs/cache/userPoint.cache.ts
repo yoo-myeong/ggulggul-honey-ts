@@ -22,7 +22,7 @@ export class UserPointCache {
   ) {}
 
   async addPointToCache(userIds: number[]) {
-    const userCoins = await this.userPointRepository.getUserPointSum(userIds);
+    const userCoins = await this.userPointRepository.getUserPointSumByUserIds(userIds);
 
     const cachingData = userCoins.reduce((acc, cur) => {
       acc.set(this.getStoreKey(cur.userId.toString()), cur.sum.toString());

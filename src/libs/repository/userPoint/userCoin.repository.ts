@@ -1,5 +1,6 @@
 import { inject, injectable } from 'inversify';
-import { IsNull, Repository } from 'typeorm';
+import { In, IsNull, Not, Repository } from 'typeorm';
+import { IsNotEmpty } from 'class-validator';
 import { UserCoinEntity } from '../../entity/userPoint/userCoin.entity';
 import { CustomError } from '../../../api/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
@@ -29,10 +30,12 @@ export class UserCoinRepository {
     return await this.userCoinEntityRepository.update({ id }, { issuePoint: point });
   }
 
-  async getUserCoinById(id: number) {
-    const userCoin = await this.userCoinEntityRepository.findOneBy({ id });
-    if (!userCoin) throw new CustomError(ErrorCode.NOT_FOUND, `invalid coinId(${id})`);
+  async getUserCoinWithIssuePointByIds(ids: number[]) {
+    const userCoins = await this.userCoinEntityRepository.findBy({ id: In(ids) });
+    const userCoinsWithIssuePoint = userCoins.filter((e) => e.issuePoint);
 
-    return userCoin;
+    if (!userCoinsWithIssuePoint.length) throw new CustomError(ErrorCode.NOT_FOUND, `no coing by ids(${ids})`);
+
+    return userCoinsWithIssuePoint;
   }
 }

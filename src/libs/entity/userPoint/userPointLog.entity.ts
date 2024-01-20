@@ -1,4 +1,5 @@
 import { Column, Entity, Unique } from 'typeorm';
+import { plainToInstance } from 'class-transformer';
 import { BaseTimeEntity } from '../BaseTimeEntity';
 import { UserPointLogCreatedByEnum } from './enum/UserPointLogCreatedBy.enum';
 
@@ -30,4 +31,13 @@ export class UserPointLogEntity extends BaseTimeEntity {
     comment: '포인트 로그 생성 주체 식별자 ex) sqs message identifier, unique api request id',
   })
   createdById: string;
+
+  static create(ctx: {
+    userId: number;
+    changePoint: number;
+    createdBy: UserPointLogCreatedByEnum;
+    createdById: string;
+  }) {
+    return plainToInstance(this, ctx);
+  }
 }

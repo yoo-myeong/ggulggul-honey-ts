@@ -1,6 +1,9 @@
 import { inject, injectable } from 'inversify';
-import { Cache } from './cache';
+import Redis from 'ioredis';
 import { UserPointRepository } from '../repository/userPoint/userPoint.repository';
+import { InjectType } from '../config/InjectType';
+import { CustomError } from '../../api/filter/CustomError';
+import { ErrorCode } from '../error/errorCode';
 
 @injectable()
 export class UserPointCache {
@@ -11,20 +14,30 @@ export class UserPointCache {
   }
 
   constructor(
-    @inject(Cache)
-    private readonly userPointCache: Cache,
+    @inject(InjectType.IoRedis)
+    private readonly cache: Redis,
 
     @inject(UserPointRepository)
     private readonly userPointRepository: UserPointRepository,
   ) {}
 
-  async addPointToCache(userId: number) {
-    const userCoin = await this.userPointRepository.getUserPointSum(userId);
+  async addPointToCache(userIds: number[]) {
+    const userCoins = await this.userPointRepository.getUserPointSum(userIds);
 
-    await this.userPointCache.set(this.getStoreKey(userId.toString()), userCoin);
+    const cachingData = userCoins.reduce((acc, cur) => {
+      acc.set(this.getStoreKey(cur.userId.toString()), cur.sum.toString());
+
+      return acc;
+    }, new Map<string, string>());
+
+    await this.cache.mset(cachingData);
   }
 
   async getPointByUserIdFromCache(userId: number) {
-    return parseInt(await this.userPointCache.get(this.getStoreKey(userId.toString())), 10);
+    const cacheData = await this.cache.get(this.getStoreKey(userId.toString()));
+
+    if (!cacheData) throw new CustomError(ErrorCode.NOT_FOUND, `no cache by userId(${userId})`);
+
+    return parseInt(cacheData, 10);
   }
 }

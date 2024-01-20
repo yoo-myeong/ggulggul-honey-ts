@@ -30,8 +30,10 @@ describe('UserPointRepository', () => {
     const log2 = createUserPointLogEntity({ userId, changePoint: changePoint2 });
     await Promise.all([userPointLogEntityRepository.save(log1), userPointLogEntityRepository.save(log2)]);
 
-    const point = await sut.getUserPointSum(userId);
+    const point = await sut.getUserPointSum([userId]);
 
-    expect(point).toBe(changePoint1 + changePoint2);
+    expect(point[0].sum).toBe(changePoint1 + changePoint2);
   });
+
+  it('중복 유저는 중복을 제거하고 조회한다', () => {});
 });

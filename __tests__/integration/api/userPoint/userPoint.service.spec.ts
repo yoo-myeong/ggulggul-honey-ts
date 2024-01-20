@@ -33,8 +33,8 @@ describe('UserPointService', () => {
     const addPointParam = await AddPointParam.from({ userId, point, apiRequestId: uuidV4() });
 
     await sut.addPoint(addPointParam);
-    const getPoint = await userPointRepository.getUserPointSum(userId);
+    const [getPoint] = await userPointRepository.getUserPointSum([userId]);
 
-    expect(getPoint).toBe(point);
+    expect(getPoint.sum).toBe(point);
   });
 });

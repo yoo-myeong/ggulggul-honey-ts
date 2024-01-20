@@ -11,8 +11,8 @@ export class UserPointService {
   ) {}
 
   async addPoint(param: AddPointParam) {
-    const userPointSum = await this.userPointRepository.getUserPointSum(param.userId);
-    const userPointDomain = UserPointDomain.from({ point: userPointSum });
+    const [userPointSum] = await this.userPointRepository.getUserPointSum([param.userId]);
+    const userPointDomain = UserPointDomain.from({ point: userPointSum.sum });
     userPointDomain.add(param.point);
 
     await this.userPointRepository.insert(

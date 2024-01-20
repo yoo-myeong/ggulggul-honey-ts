@@ -9,9 +9,9 @@ import { MYSQL, REDIS } from '../../../libs/config/configContainer';
 export const handler: SQSHandler = async (sqsEvent: SQSEvent) => {
   const { userId } = JSON.parse(sqsEvent.Records[0].body);
 
-  const [userPointCacheService] = [getWorkerContainer().get(UserPointCache)];
+  const [userPointCache] = [getWorkerContainer().get(UserPointCache)];
   IoRedis.connect(REDIS);
   await TypeOrm.connect(MYSQL);
 
-  await userPointCacheService.addPointToCache(userId);
+  await userPointCache.addPointToCache(userId);
 };

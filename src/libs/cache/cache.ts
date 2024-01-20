@@ -5,7 +5,7 @@ import { CustomError } from '../../api/filter/CustomError';
 import { ErrorCode } from '../error/errorCode';
 
 @injectable()
-export class CacheService {
+export class Cache {
   constructor(
     @inject(InjectType.IoRedis)
     private readonly cache: Redis,

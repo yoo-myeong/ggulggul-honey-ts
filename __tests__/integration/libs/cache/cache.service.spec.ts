@@ -1,7 +1,7 @@
 import Redis from 'ioredis';
 import { IoRedis } from '../../../../src/libs/redis/IoRedis';
 import { getRedisTestOption } from '../../getRedisTestOption';
-import { CacheService } from '../../../../src/libs/cache/cacheService';
+import { Cache } from '../../../../src/libs/cache/cache';
 import { CustomError } from '../../../../src/api/filter/CustomError';
 
 describe('CacheService', () => {
@@ -20,7 +20,7 @@ describe('CacheService', () => {
     const key = 'key';
     const value = 'value';
 
-    const sut = new CacheService(redis);
+    const sut = new Cache(redis);
     await sut.set(key, value);
     const result = await sut.get(key);
 
@@ -30,7 +30,7 @@ describe('CacheService', () => {
   it('get은 없으면 에러를 스로우한다', async () => {
     const key = 'key';
 
-    const sut = new CacheService(redis);
+    const sut = new Cache(redis);
 
     await expect(sut.get(key)).rejects.toThrow(CustomError);
   });
@@ -38,7 +38,7 @@ describe('CacheService', () => {
   it('find은 없으면 null을 반환한다', async () => {
     const key = 'key';
 
-    const sut = new CacheService(redis);
+    const sut = new Cache(redis);
     const result = await sut.find(key);
 
     expect(result).toBeNull();
@@ -49,7 +49,7 @@ describe('CacheService', () => {
     const value = 'value';
     const ttl = 10;
 
-    const sut = new CacheService(redis);
+    const sut = new Cache(redis);
     await sut.set(key, value, ttl);
     await new Promise((r) => {
       setTimeout(r, ttl * 2);

@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { SQSHandler, SQSEvent } from 'aws-lambda';
 import { getWorkerContainer } from '../../config/getWorkerContainer';
-import { UserPointCacheService } from '../../service/userPointCache.service';
+import { UserPointCache } from '../../../libs/cache/userPoint.cache';
 import { IoRedis } from '../../../libs/redis/IoRedis';
 import { TypeOrm } from '../../../libs/repository/TypeOrm';
 import { MYSQL, REDIS } from '../../../libs/config/configContainer';
@@ -9,9 +9,9 @@ import { MYSQL, REDIS } from '../../../libs/config/configContainer';
 export const handler: SQSHandler = async (sqsEvent: SQSEvent) => {
   const { userId } = JSON.parse(sqsEvent.Records[0].body);
 
-  const [addPointService] = [getWorkerContainer().get(UserPointCacheService)];
+  const [userPointCacheService] = [getWorkerContainer().get(UserPointCache)];
   IoRedis.connect(REDIS);
   await TypeOrm.connect(MYSQL);
 
-  await addPointService.addPointToCache(userId);
+  await userPointCacheService.addPointToCache(userId);
 };

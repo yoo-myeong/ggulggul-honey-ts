@@ -1,12 +1,12 @@
 import { Container } from 'inversify';
 import { getLibContainer } from '../../libs/config/getLibContainer';
-import { UserPointCacheService } from '../service/userPointCache.service';
+import { UserPointCache } from '../../libs/cache/userPoint.cache';
 
 export const getWorkerContainer = () => {
   const container = new Container();
 
   // service
-  container.bind(UserPointCacheService).to(UserPointCacheService);
+  container.bind(UserPointCache).to(UserPointCache);
 
   return Container.merge(container, getLibContainer());
 };

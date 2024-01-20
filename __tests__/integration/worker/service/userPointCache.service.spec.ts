@@ -6,8 +6,8 @@ import { getRedisTestOption } from '../../getRedisTestOption';
 import { TypeOrm } from '../../../../src/libs/repository/TypeOrm';
 import { getMySqlTypeOrmTestOption } from '../../getMySqlTypeOrmTestOption';
 import { UserPointLogEntity } from '../../../../src/libs/entity/userPoint/userPointLog.entity';
-import { UserPointCacheService } from '../../../../src/worker/service/userPointCache.service';
-import { CacheService } from '../../../../src/libs/cache/cacheService';
+import { UserPointCache } from '../../../../src/libs/cache/userPoint.cache';
+import { Cache } from '../../../../src/libs/cache/cache';
 import { UserPointRepository } from '../../../../src/libs/repository/userPoint/userPoint.repository';
 
 describe('UserPointRedisService', () => {
@@ -34,7 +34,7 @@ describe('UserPointRedisService', () => {
 
   it('캐시저장소에 유저의 포인트를 갱신하고 조회할 수 있다', async () => {
     const userPointRepository = new UserPointRepository(userPointLogEntityRepository);
-    const sut = new UserPointCacheService(new CacheService(redis), userPointRepository);
+    const sut = new UserPointCache(new Cache(redis), userPointRepository);
     const userPointLogEntity = new UserPointLogEntity();
     userPointLogEntity.userId = 1;
     userPointLogEntity.pointRequestId = v4();

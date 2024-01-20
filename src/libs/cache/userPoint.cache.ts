@@ -1,9 +1,9 @@
 import { inject, injectable } from 'inversify';
-import { CacheService } from '../../libs/cache/cacheService';
-import { UserPointRepository } from '../../libs/repository/userPoint/userPoint.repository';
+import { Cache } from './cache';
+import { UserPointRepository } from '../repository/userPoint/userPoint.repository';
 
 @injectable()
-export class UserPointCacheService {
+export class UserPointCache {
   private readonly prefix = this.constructor.name;
 
   private getStoreKey(key: string) {
@@ -11,8 +11,8 @@ export class UserPointCacheService {
   }
 
   constructor(
-    @inject(CacheService)
-    private readonly userPointCache: CacheService,
+    @inject(Cache)
+    private readonly userPointCache: Cache,
 
     @inject(UserPointRepository)
     private readonly userPointRepository: UserPointRepository,

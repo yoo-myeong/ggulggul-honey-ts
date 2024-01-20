@@ -6,7 +6,7 @@ switch (process.env.NODE_ENV) {
   case 'local':
   case 'test':
   default:
-    envPath = path.join(__dirname, '../../../env.api.local');
+    envPath = path.join(__dirname, '../../../.env.api.local');
     break;
 }
 

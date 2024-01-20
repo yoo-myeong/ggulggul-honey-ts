@@ -6,7 +6,8 @@ export const APP = {
   APP_PORT,
 };
 
-const isLocalOrTestEnv = () => !!(Config.cast('NODE_ENV').getString() === 'local' || 'test');
+const nodeEnv = Config.cast('NODE_ENV').getString();
+const isLocalOrTestEnv = () => nodeEnv === 'local' || nodeEnv === 'test';
 
 export const GOOGLE = {
   GOOGLE_CLIENT_ID: Config.cast('GOOGLE_CLIENT_ID').getString(),
@@ -34,6 +35,6 @@ export const MYSQL = {
 export const REDIS = {
   host: Config.cast('REDIS_HOST').getString(),
   port: Config.cast('REDIS_PORT').getParsedInt(),
-  username: isLocalOrTestEnv() ? Config.cast('REDIS_USERNAME').getString() : undefined,
-  password: isLocalOrTestEnv() ? Config.cast('REDIS_PASSWORD').getString() : undefined,
+  username: isLocalOrTestEnv() ? undefined : Config.cast('REDIS_USERNAME').getString(),
+  password: isLocalOrTestEnv() ? undefined : Config.cast('REDIS_PASSWORD').getString(),
 };

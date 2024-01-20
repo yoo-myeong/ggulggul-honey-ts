@@ -11,11 +11,12 @@ export class UserCoinEntity extends BaseTimeEntity {
   userId: number;
 
   @Column({ nullable: true })
-  issuePoint: number;
+  issuePoint?: number;
 
-  static create(ctx: { userId: number }) {
+  static create(ctx: { userId: number; issuePoint?: number }) {
     const inst = new UserCoinEntity();
     inst.userId = ctx.userId;
+    inst.issuePoint = ctx.issuePoint;
 
     return inst;
   }

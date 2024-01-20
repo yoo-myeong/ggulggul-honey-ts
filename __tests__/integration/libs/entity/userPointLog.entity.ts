@@ -1,17 +1,18 @@
 import { v4 as uuidV4 } from 'uuid';
 import { UserPointLogEntity } from '../../../../src/libs/entity/userPoint/userPointLog.entity';
+import { UserPointLogCreatedByEnum } from '../../../../src/libs/entity/userPoint/enum/UserPointLogCreatedBy.enum';
 
 export const createUserPointLogEntity = (ctx: {
   changePoint: number;
   userId?: number;
-  pointRequestId?: string;
-  modifiedBy?: string;
+  createdById?: string;
+  createdBy?: UserPointLogCreatedByEnum;
 }) => {
   const log = new UserPointLogEntity();
   log.changePoint = ctx.changePoint;
   log.userId = ctx.userId ?? 1;
-  log.pointRequestId = ctx.pointRequestId ?? uuidV4();
-  log.modifiedBy = ctx.modifiedBy ?? 'while running jest';
+  log.createdById = ctx.createdById ?? uuidV4();
+  log.createdBy = ctx.createdBy ?? UserPointLogCreatedByEnum.API;
 
   return log;
 };

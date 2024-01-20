@@ -1,10 +1,8 @@
 import { inject, injectable } from 'inversify';
 import { Repository } from 'typeorm';
-import { TypeOrm } from '../TypeOrm';
 import { UserPointLogEntity } from '../../entity/userPoint/userPointLog.entity';
 import { CustomError } from '../../../api/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
-import { UserPointDomain } from '../../domain/userPoint/userPoint.domain';
 import { InjectType } from '../../config/InjectType';
 
 @injectable()

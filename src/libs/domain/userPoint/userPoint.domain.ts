@@ -1,6 +1,7 @@
 import { CustomError } from '../../../api/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
 import { UserPointLogEntity } from '../../entity/userPoint/userPointLog.entity';
+import { UserPointLogCreatedByEnum } from '../../entity/userPoint/enum/UserPointLogCreatedBy.enum';
 
 export class UserPointDomain {
   private readonly MIN_USABLE_POINT = 1000;
@@ -66,12 +67,12 @@ export class UserPointDomain {
     return this._point;
   }
 
-  toUserPointLogEntity(params: { userId: number; pointRequestId: string; modifiedBy: string }) {
+  toUserPointLogEntity(params: { userId: number; createById: string; createdBy: UserPointLogCreatedByEnum }) {
     const entity = new UserPointLogEntity();
     entity.userId = params.userId;
-    entity.pointRequestId = params.pointRequestId;
-    entity.modifiedBy = params.modifiedBy;
+    entity.createdById = params.createById;
     entity.changePoint = this._changPoint;
+    entity.createdBy = params.createdBy;
 
     return entity;
   }

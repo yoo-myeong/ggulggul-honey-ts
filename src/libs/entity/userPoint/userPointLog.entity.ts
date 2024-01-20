@@ -1,21 +1,15 @@
 import { Column, Entity, Unique } from 'typeorm';
 import { BaseTimeEntity } from '../BaseTimeEntity';
+import { UserPointLogCreatedByEnum } from './enum/UserPointLogCreatedBy.enum';
 
 @Entity('user_point_log')
-@Unique(['userId', 'pointRequestId'])
+@Unique(['createdBy', 'createdById'])
 export class UserPointLogEntity extends BaseTimeEntity {
   @Column({
     type: 'int',
     unsigned: true,
   })
   userId: number;
-
-  @Column({
-    type: 'char',
-    length: 36,
-    comment: '포인트 변경 중복처리 방지 id',
-  })
-  pointRequestId: string;
 
   @Column({
     type: 'int',
@@ -26,7 +20,14 @@ export class UserPointLogEntity extends BaseTimeEntity {
   @Column({
     type: 'varchar',
     length: 50,
-    comment: 'changing url path',
+    comment: '포인트 로그 생성 주체',
   })
-  modifiedBy: string;
+  createdBy: UserPointLogCreatedByEnum;
+
+  @Column({
+    type: 'varchar',
+    length: 100,
+    comment: '포인트 로그 생성 주체 식별자 ex) sqs message identifier, unique api request id',
+  })
+  createdById: string;
 }

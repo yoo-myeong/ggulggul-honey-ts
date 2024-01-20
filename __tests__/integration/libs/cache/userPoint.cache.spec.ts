@@ -1,6 +1,5 @@
 import Redis from 'ioredis';
 import { Repository } from 'typeorm';
-import { v4 } from 'uuid';
 import { IoRedis } from '../../../../src/libs/redis/IoRedis';
 import { getRedisTestOption } from '../../getRedisTestOption';
 import { TypeOrm } from '../../../../src/libs/repository/TypeOrm';
@@ -9,6 +8,7 @@ import { UserPointLogEntity } from '../../../../src/libs/entity/userPoint/userPo
 import { UserPointCache } from '../../../../src/libs/cache/userPoint.cache';
 import { Cache } from '../../../../src/libs/cache/cache';
 import { UserPointRepository } from '../../../../src/libs/repository/userPoint/userPoint.repository';
+import { createUserPointLogEntity } from '../entity/userPointLog.entity';
 
 describe('UserPointRedisService', () => {
   let redis: Redis;
@@ -35,11 +35,10 @@ describe('UserPointRedisService', () => {
   it('캐시저장소에 유저의 포인트를 갱신하고 조회할 수 있다', async () => {
     const userPointRepository = new UserPointRepository(userPointLogEntityRepository);
     const sut = new UserPointCache(new Cache(redis), userPointRepository);
-    const userPointLogEntity = new UserPointLogEntity();
-    userPointLogEntity.userId = 1;
-    userPointLogEntity.pointRequestId = v4();
-    userPointLogEntity.changePoint = 100;
-    userPointLogEntity.modifiedBy = 'test';
+    const userPointLogEntity = createUserPointLogEntity({
+      userId: 1,
+      changePoint: 1000,
+    });
     await userPointRepository.insert(userPointLogEntity);
 
     await sut.addPointToCache(userPointLogEntity.userId);

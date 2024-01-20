@@ -2,6 +2,7 @@ import { inject } from 'inversify';
 import { UserPointRepository } from '../../libs/repository/userPoint/userPoint.repository';
 import { AddPointParam } from './dto/AddPointParam';
 import { UserPointDomain } from '../../libs/domain/userPoint/userPoint.domain';
+import { UserPointLogCreatedByEnum } from '../../libs/entity/userPoint/enum/UserPointLogCreatedBy.enum';
 
 export class UserPointService {
   constructor(
@@ -17,8 +18,8 @@ export class UserPointService {
     await this.userPointRepository.insert(
       userPointDomain.toUserPointLogEntity({
         userId: param.userId,
-        pointRequestId: param.pointRequestId,
-        modifiedBy: param.requestUrl,
+        createById: param.apiRequestId,
+        createdBy: UserPointLogCreatedByEnum.API,
       }),
     );
   }

@@ -30,7 +30,7 @@ describe('UserPointService', () => {
     const sut = new UserPointService(userPointRepository);
     const userId = 1;
     const point = 1000;
-    const addPointParam = await AddPointParam.from({ userId, point, pointRequestId: uuidV4(), requestUrl: 'JEST' });
+    const addPointParam = await AddPointParam.from({ userId, point, apiRequestId: uuidV4() });
 
     await sut.addPoint(addPointParam);
     const getPoint = await userPointRepository.getUserPointSum(userId);

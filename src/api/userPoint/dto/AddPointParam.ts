@@ -9,12 +9,9 @@ export class AddPointParam {
   point: number;
 
   @Expose()
-  pointRequestId: string;
+  apiRequestId: string;
 
-  @Expose()
-  requestUrl: string;
-
-  static from(ctx: { userId: number; point: number; pointRequestId: string; requestUrl: string }) {
+  static from(ctx: { userId: number; point: number; apiRequestId: string }) {
     return of(this, ctx);
   }
 }

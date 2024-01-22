@@ -7,6 +7,7 @@ import { getMySqlTypeOrmTestOption } from '../../getMySqlTypeOrmTestOption';
 import { AddPointParam } from '../../../../src/api/userPoint/dto/AddPointParam';
 import { UserPointService } from '../../../../src/api/userPoint/userPoint.service';
 import { CustomError } from '../../../../src/api/filter/CustomError';
+import { UsePointParam } from '../../../../src/api/userPoint/dto/UsePointParam';
 
 describe('UserPointService', () => {
   let userPointLogEntityRepository: Repository<UserPointLogEntity>;
@@ -51,5 +52,26 @@ describe('UserPointService', () => {
     await sut.addPoint(addPointParam);
 
     await expect(sut.addPoint(addPointParam)).rejects.toThrow(CustomError);
+  });
+
+  it('포인트 사용', async () => {
+    const userId = 1;
+    const havingPoint = 2000;
+    const usingPoint = 1000;
+    const addPointParam = await createAddPointParam({
+      userId,
+      point: havingPoint,
+    });
+    const usePointParam = new UsePointParam();
+    usePointParam.userId = userId;
+    usePointParam.point = usingPoint;
+    usePointParam.createdById = uuidV4();
+    const sut = new UserPointService(userPointRepository);
+
+    await sut.addPoint(addPointParam);
+    await sut.usePoint(usePointParam);
+    const [point] = await userPointRepository.getUserPointSumByUserIds([userId]);
+
+    expect(point.sum).toBe(havingPoint - usingPoint);
   });
 });

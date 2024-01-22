@@ -5,6 +5,7 @@ import { UserPointDomain } from '../../libs/domain/userPoint/userPoint.domain';
 import { UserPointLogCreatedByEnum } from '../../libs/entity/userPoint/enum/UserPointLogCreatedBy.enum';
 import { CustomError } from '../filter/CustomError';
 import { ErrorCode } from '../../libs/error/errorCode';
+import { UsePointParam } from './dto/UsePointParam';
 
 export class UserPointService {
   constructor(
@@ -13,16 +14,31 @@ export class UserPointService {
   ) {}
 
   async addPoint(param: AddPointParam) {
-    const [[userPointSum], exist] = await Promise.all([
+    const [[userPoint]] = await Promise.all([
       this.userPointRepository.getUserPointSumByUserIds([param.userId]),
-      this.userPointRepository.existPointLogByCreatedById(param.createdById),
+      this.userPointRepository.shouldNotExistPointLogByCreatedById(param.createdById),
     ]);
 
-    if (exist)
-      throw new CustomError(ErrorCode.DUPLICATED, `already exist point log by createdById(${param.createdById})`);
-
-    const userPointDomain = UserPointDomain.from({ point: userPointSum.sum });
+    const userPointDomain = UserPointDomain.from({ point: userPoint.sum });
     userPointDomain.add(param.point);
+
+    await this.userPointRepository.insert(
+      userPointDomain.toUserPointLogEntity({
+        userId: param.userId,
+        createById: param.createdById,
+        createdBy: UserPointLogCreatedByEnum.API,
+      }),
+    );
+  }
+
+  async usePoint(param: UsePointParam) {
+    const [[point]] = await Promise.all([
+      this.userPointRepository.getUserPointSumByUserIds([param.userId]),
+      this.userPointRepository.shouldNotExistPointLogByCreatedById(param.createdById),
+    ]);
+
+    const userPointDomain = UserPointDomain.from({ point: point.sum });
+    userPointDomain.use(param.point);
 
     await this.userPointRepository.insert(
       userPointDomain.toUserPointLogEntity({

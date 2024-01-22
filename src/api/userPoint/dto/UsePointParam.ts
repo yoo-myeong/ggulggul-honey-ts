@@ -1,8 +1,8 @@
 import { Expose } from 'class-transformer';
-import { IsNegative, IsNumber, IsPositive, IsString } from 'class-validator';
+import { IsNumber, IsPositive, IsString } from 'class-validator';
 import { of } from '../../../libs/util/of';
 
-export class AddPointParam {
+export class UsePointParam {
   @Expose()
   @IsNumber()
   @IsPositive()

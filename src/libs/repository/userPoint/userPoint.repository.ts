@@ -29,12 +29,14 @@ export class UserPointRepository {
     return userPointLog.map((e) => plainToInstance(GetUserPointSumResult, e));
   }
 
-  async existPointLogByCreatedById(createdById: string) {
-    return await this.userPointLogEntityRepository.exist({
+  async shouldNotExistPointLogByCreatedById(createdById: string) {
+    const exist = await this.userPointLogEntityRepository.exist({
       where: {
         createdById,
       },
     });
+
+    if (exist) throw new CustomError(ErrorCode.DUPLICATED, `already exist point log by createdById(${createdById})`);
   }
 
   async insert(entity: UserPointLogEntity) {

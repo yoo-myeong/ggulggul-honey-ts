@@ -14,7 +14,6 @@ export class UserPointLogEntity extends BaseTimeEntity {
 
   @Column({
     type: 'int',
-    unsigned: true,
   })
   changePoint: number;
 

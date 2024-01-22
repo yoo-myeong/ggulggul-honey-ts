@@ -5,7 +5,6 @@ import { UserPointLogEntity } from '../../entity/userPoint/userPointLog.entity';
 import { CustomError } from '../../../api/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
 import { InjectType } from '../../config/InjectType';
-import { of } from '../../util/of';
 import { GetUserPointSumResult } from './dto/getUserPointSum.dto';
 
 @injectable()
@@ -28,6 +27,14 @@ export class UserPointRepository {
     if (!userPointLog.length) throw new CustomError(ErrorCode.NOT_FOUND, 'userPointLog not found');
 
     return userPointLog.map((e) => plainToInstance(GetUserPointSumResult, e));
+  }
+
+  async existPointLogByCreatedById(createdById: string) {
+    return await this.userPointLogEntityRepository.exist({
+      where: {
+        createdById,
+      },
+    });
   }
 
   async insert(entity: UserPointLogEntity) {

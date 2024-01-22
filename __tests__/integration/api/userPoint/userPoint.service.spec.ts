@@ -6,6 +6,7 @@ import { TypeOrm } from '../../../../src/libs/repository/TypeOrm';
 import { getMySqlTypeOrmTestOption } from '../../getMySqlTypeOrmTestOption';
 import { AddPointParam } from '../../../../src/api/userPoint/dto/AddPointParam';
 import { UserPointService } from '../../../../src/api/userPoint/userPoint.service';
+import { CustomError } from '../../../../src/api/filter/CustomError';
 
 describe('UserPointService', () => {
   let userPointLogEntityRepository: Repository<UserPointLogEntity>;
@@ -26,15 +27,29 @@ describe('UserPointService', () => {
     await TypeOrm.disconnect();
   });
 
+  const createAddPointParam = async (ctx: { userId?: number; point?: number; createdById?: string }) =>
+    await AddPointParam.from({
+      userId: ctx.userId ?? 1,
+      point: ctx.point ?? 1000,
+      createdById: ctx.createdById ?? uuidV4(),
+    });
+
   it('포인트 적립', async () => {
+    const addPointParam = await createAddPointParam({});
     const sut = new UserPointService(userPointRepository);
-    const userId = 1;
-    const point = 1000;
-    const addPointParam = await AddPointParam.from({ userId, point, apiRequestId: uuidV4() });
 
     await sut.addPoint(addPointParam);
-    const [getPoint] = await userPointRepository.getUserPointSumByUserIds([userId]);
+    const [getPoint] = await userPointRepository.getUserPointSumByUserIds([addPointParam.userId]);
 
-    expect(getPoint.sum).toBe(point);
+    expect(getPoint.sum).toBe(addPointParam.point);
+  });
+
+  it('동일한 요청 id를 가진 포인트는 생성될 수 없다', async () => {
+    const addPointParam = await createAddPointParam({});
+    const sut = new UserPointService(userPointRepository);
+
+    await sut.addPoint(addPointParam);
+
+    await expect(sut.addPoint(addPointParam)).rejects.toThrow(CustomError);
   });
 });

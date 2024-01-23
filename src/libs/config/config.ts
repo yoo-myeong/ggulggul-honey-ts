@@ -4,12 +4,14 @@ import path from 'path';
 let envPath: string;
 switch (process.env.NODE_ENV) {
   case 'local':
+    envPath = path.join(__dirname, '../../../../.env.api.local');
+    break;
   case 'test':
-  default:
     envPath = path.join(__dirname, '../../../.env.api.local');
     break;
+  default:
+    throw new Error(`no env path by (${process.env.NODE_ENV})`);
 }
-
 dotenv.config({ path: envPath });
 
 export class Config {

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit --reporters=default",
     "build": "tsc",
-    "start:local": "NODE_ENV=local npm run build & serverless offline"
+    "start:local": "NODE_ENV=local npm run build & serverless offline --config serverless.local.yml"
   },
   "keywords": [],
   "author": "",

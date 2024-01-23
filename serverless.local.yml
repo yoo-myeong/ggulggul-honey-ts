@@ -8,6 +8,8 @@ custom:
 provider:
   name: aws
   runtime: nodejs18.x
+  environment:
+    NODE_ENV: local
 
 functions:
   api:

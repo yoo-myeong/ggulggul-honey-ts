@@ -6,6 +6,7 @@ import { InjectType } from './InjectType';
 import { TypeOrm } from '../repository/TypeOrm';
 import { TestEntity } from '../entity/test/test.entity';
 import { IoRedis } from '../redis/IoRedis';
+import { MallRepository } from '../repository/mall/mall.repository';
 
 export const getLibContainer = () => {
   const container = new Container();
@@ -20,6 +21,7 @@ export const getLibContainer = () => {
   container.bind(TestCustomRepository).to(TestCustomRepository);
   container.bind(UserPointRepository).to(UserPointRepository);
   container.bind(UserCoinRepository).to(UserCoinRepository);
+  container.bind(MallRepository).to(MallRepository);
 
   return container;
 };

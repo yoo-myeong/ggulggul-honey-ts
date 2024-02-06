@@ -4,11 +4,11 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import { getApiContainer } from './config/getApiContainer';
 import { MYSQL, REDIS } from '../libs/config/configContainer';
 import { App } from './App';
-
-import './test/test.controller';
 import { TypeOrm } from '../libs/repository/TypeOrm';
 import { IoRedis } from '../libs/redis/IoRedis';
 import { Config } from '../libs/config/config';
+import './test/test.controller';
+import './mall/mall.controller';
 
 export const handler = async () => {
   await TypeOrm.connect(MYSQL);

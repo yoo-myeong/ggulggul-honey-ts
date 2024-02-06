@@ -2,12 +2,12 @@ import 'reflect-metadata';
 import express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import supertest from 'supertest';
-import { getApiContainer } from '../../../src/api/config/getApiContainer';
-import { App } from '../../../src/api/App';
+import { getApiContainer } from '../../../src/customer-api/config/getApiContainer';
+import { App } from '../../../src/customer-api/App';
 import { getMySqlTypeOrmTestOption } from '../../integration/getMySqlTypeOrmTestOption';
 import { TypeOrm } from '../../../src/libs/repository/TypeOrm';
 
-import '../../../src/api/test/test.controller';
+import '../../../src/customer-api/test/test.controller';
 
 describe('test', () => {
   let app: express.Application;

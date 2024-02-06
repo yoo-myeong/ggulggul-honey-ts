@@ -4,7 +4,7 @@ import { getMySqlTypeOrmTestOption } from '../../getMySqlTypeOrmTestOption';
 import { UserCoinEntity } from '../../../../src/libs/entity/userPoint/userCoin.entity';
 import { UserPointLogEntity } from '../../../../src/libs/entity/userPoint/userPointLog.entity';
 import { UserPointRepository } from '../../../../src/libs/repository/userPoint/userPoint.repository';
-import { CustomError } from '../../../../src/api/filter/CustomError';
+import { CustomError } from '../../../../src/customer-api/filter/CustomError';
 import { AddPointToRdbService } from '../../../../src/worker/service/addPointToRdb.service';
 import { UserCoinRepository } from '../../../../src/libs/repository/userPoint/userCoin.repository';
 

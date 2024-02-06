@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import Redis from 'ioredis';
 import { UserPointRepository } from '../repository/userPoint/userPoint.repository';
 import { InjectType } from '../config/InjectType';
-import { CustomError } from '../../api/filter/CustomError';
+import { CustomError } from '../../customer-api/filter/CustomError';
 import { ErrorCode } from '../error/errorCode';
 
 @injectable()

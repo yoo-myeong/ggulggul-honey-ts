@@ -27,7 +27,7 @@ export class UserPointLogEntity extends BaseTimeEntity {
   @Column({
     type: 'varchar',
     length: 100,
-    comment: '포인트 로그 생성 주체 식별자 ex) sqs message identifier, unique api request id',
+    comment: '포인트 로그 생성 주체 식별자 ex) sqs message identifier, unique customer-customer-customer-api request id',
   })
   createdById: string;
 

@@ -4,12 +4,12 @@ import supertest from 'supertest';
 import { instanceToPlain } from 'class-transformer';
 import { TypeOrm } from '../../../../src/libs/repository/TypeOrm';
 import { getMySqlTypeOrmTestOption } from '../../../integration/getMySqlTypeOrmTestOption';
-import { getApiContainer } from '../../../../src/api/config/getApiContainer';
-import { App } from '../../../../src/api/App';
+import { getApiContainer } from '../../../../src/customer-api/config/getApiContainer';
+import { App } from '../../../../src/customer-api/App';
 import { MallEntity } from '../../../../src/libs/entity/mall/mall.entity';
 
-import '../../../../src/api/mall/mall.controller';
-import { GetMallByIdResponse } from '../../../../src/api/mall/dto/GetMallByIdResponse';
+import '../../../../src/customer-api/mall/mall.controller';
+import { GetMallByIdResponse } from '../../../../src/customer-api/mall/dto/GetMallByIdResponse';
 
 describe('/malls', () => {
   let app: express.Application;

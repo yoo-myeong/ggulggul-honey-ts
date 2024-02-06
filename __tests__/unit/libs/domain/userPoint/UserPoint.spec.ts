@@ -1,5 +1,5 @@
 import { UserPointDomain } from '../../../../../src/libs/domain/userPoint/userPoint.domain';
-import { CustomError } from '../../../../../src/api/filter/CustomError';
+import { CustomError } from '../../../../../src/customer-api/filter/CustomError';
 
 describe('UserPointDomain', () => {
   describe('use point', () => {

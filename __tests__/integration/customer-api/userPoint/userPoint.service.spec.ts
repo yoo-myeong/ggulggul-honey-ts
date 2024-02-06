@@ -4,10 +4,10 @@ import { UserPointLogEntity } from '../../../../src/libs/entity/userPoint/userPo
 import { UserPointRepository } from '../../../../src/libs/repository/userPoint/userPoint.repository';
 import { TypeOrm } from '../../../../src/libs/repository/TypeOrm';
 import { getMySqlTypeOrmTestOption } from '../../getMySqlTypeOrmTestOption';
-import { AddPointParam } from '../../../../src/api/userPoint/dto/AddPointParam';
-import { UserPointService } from '../../../../src/api/userPoint/userPoint.service';
-import { CustomError } from '../../../../src/api/filter/CustomError';
-import { UsePointParam } from '../../../../src/api/userPoint/dto/UsePointParam';
+import { AddPointParam } from '../../../../src/customer-api/userPoint/dto/AddPointParam';
+import { UserPointService } from '../../../../src/customer-api/userPoint/userPoint.service';
+import { CustomError } from '../../../../src/customer-api/filter/CustomError';
+import { UsePointParam } from '../../../../src/customer-api/userPoint/dto/UsePointParam';
 
 describe('UserPointService', () => {
   let userPointLogEntityRepository: Repository<UserPointLogEntity>;

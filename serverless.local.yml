@@ -13,7 +13,7 @@ provider:
 
 functions:
   api:
-    handler: ./dist/src/api/index.handler
+    handler: ./dist/src/customer-customer-customer-api/index.handler
     events:
       - httpApi: '*'
 

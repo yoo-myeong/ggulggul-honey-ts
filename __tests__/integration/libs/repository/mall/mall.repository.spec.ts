@@ -2,7 +2,7 @@ import { Repository } from 'typeorm';
 import { TypeOrm } from '../../../../../src/libs/repository/TypeOrm';
 import { getMySqlTypeOrmTestOption } from '../../../getMySqlTypeOrmTestOption';
 import { MallEntity } from '../../../../../src/libs/entity/mall/mall.entity';
-import { CustomError } from '../../../../../src/api/filter/CustomError';
+import { CustomError } from '../../../../../src/customer-api/filter/CustomError';
 import { MallRepository } from '../../../../../src/libs/repository/mall/mall.repository';
 
 describe('MallRepository', () => {

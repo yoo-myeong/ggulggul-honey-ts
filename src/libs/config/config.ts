@@ -4,10 +4,10 @@ import path from 'path';
 let envPath: string;
 switch (process.env.NODE_ENV) {
   case 'local':
-    envPath = path.join(__dirname, '../../../../.env.customer-customer-customer-api.local');
+    envPath = path.join(__dirname, '../../../../.env.api.local');
     break;
   case 'test':
-    envPath = path.join(__dirname, '../../../.env.customer-customer-customer-api.local');
+    envPath = path.join(__dirname, '../../../.env.api.local');
     break;
   default:
     throw new Error(`no env path by (${process.env.NODE_ENV})`);

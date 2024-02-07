@@ -9,52 +9,62 @@ import {
   IsString,
   Max,
   Min,
+  MinLength,
 } from 'class-validator';
-import { DateTimeUtil } from '../../../libs/util/DateTimeUtil';
-import { of } from '../../../libs/util/of';
+import { Expose } from 'class-transformer';
+import { DateTimeUtil } from '../../util/DateTimeUtil';
+import { of } from '../../util/of';
 
-export class CreateReservedTicketReq {
+export class CreateRaffleTicket {
   private VALID_SELL_DIFF_HOURS = 48;
 
   private VALID_APPLY_DIFF_HOURS_TO_SELL_DATE = 24;
 
   private VALID_APPLY_DIFF_HOURS_TO_NOW = 1;
 
+  @Expose()
   @IsString()
   @IsNotEmpty()
-  @Min(20)
-  explanation: string;
+  @MinLength(20)
+  private explanation: string;
 
+  @Expose()
   @IsNumber()
   @IsPositive()
   @IsDivisibleBy(100)
-  originPrice: number;
+  private originPrice: number;
 
+  @Expose()
   @IsNumber()
   @IsPositive()
   @IsDivisibleBy(100)
-  salePrice: number;
+  private salePrice: number;
 
+  @Expose()
   @IsString()
   @IsNotEmpty()
-  @Min(1)
-  title: string;
+  @MinLength(1)
+  private title: string;
 
+  @Expose()
   @IsNumber()
   @Max(5)
   @IsPositive()
   @IsInt()
-  quantity: number;
+  private quantity: number;
 
+  @Expose()
   @IsString({ each: true })
   @IsOptional()
-  imageUrls: string[];
+  private imageUrls: string[];
 
+  @Expose()
   @IsDate()
-  sellDate: Date;
+  private sellDate: Date;
 
+  @Expose()
   @IsDate()
-  applyEndDate: Date;
+  private applyEndDate: Date;
 
   private validateSalePrice() {
     if (!(this.salePrice < this.originPrice)) {
@@ -84,10 +94,19 @@ export class CreateReservedTicketReq {
     this.validateApplyEndDate(now);
   }
 
-  static async create(params: CreateReservedTicketReq) {
-    const req = await of(this, params);
-    req.validate();
+  static async create(params: {
+    explanation: string;
+    originPrice: number;
+    salePrice: number;
+    title: string;
+    quantity: number;
+    imageUrls: string[];
+    sellDate: Date;
+    applyEndDate: Date;
+  }) {
+    const inst = await of(CreateRaffleTicket, params);
+    inst.validate();
 
-    return req;
+    return inst;
   }
 }

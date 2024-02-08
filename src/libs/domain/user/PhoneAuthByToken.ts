@@ -1,4 +1,4 @@
-import { DateTimeUtil } from '../../../util/DateTimeUtil';
+import { DateTimeUtil } from '../../util/DateTimeUtil';
 
 export class PhoneAuthByToken {
   private readonly EXPIRED_MINUTE = 5;

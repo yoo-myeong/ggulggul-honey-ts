@@ -1,10 +1,9 @@
 import { Column, Entity } from 'typeorm';
 import { DateTimeUtil } from '../../util/DateTimeUtil';
-import { of } from '../../util/of';
 import { BaseTimeEntity } from '../BaseTimeEntity';
 
-@Entity('reserved_ticket')
-export class ReservedTicketEntity extends BaseTimeEntity {
+@Entity('raffle_ticket')
+export class RaffleTicketEntity extends BaseTimeEntity {
   private RAFFLE_DIFF_HOURS_TO_APPLY_END = 1;
 
   @Column({
@@ -57,11 +56,30 @@ export class ReservedTicketEntity extends BaseTimeEntity {
     this.raffleDate = DateTimeUtil.DateAddHours(this.applyEndDate, this.RAFFLE_DIFF_HOURS_TO_APPLY_END);
   }
 
-  static async create(params: ReservedTicketEntity) {
-    const reservedTicket = await of(this, params);
+  static async create(params: {
+    explanation: string;
+    originPrice: number;
+    salePrice: number;
+    title: string;
+    quantity: number;
+    imageUrls: string[];
+    sellDate: Date;
+    applyEndDate: Date;
+    raffleDate: Date;
+  }) {
+    const inst = new RaffleTicketEntity();
+    inst.explanation = params.explanation;
+    inst.originPrice = params.originPrice;
+    inst.salePrice = params.salePrice;
+    inst.title = params.title;
+    inst.quantity = params.quantity;
+    inst.imageUrls = params.imageUrls;
+    inst.sellDate = params.sellDate;
+    inst.applyEndDate = params.applyEndDate;
+    inst.raffleDate = params.raffleDate;
 
-    reservedTicket.setRaffleDate();
+    inst.setRaffleDate();
 
-    return reservedTicket;
+    return inst;
   }
 }

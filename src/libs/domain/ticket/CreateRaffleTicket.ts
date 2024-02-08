@@ -8,7 +8,6 @@ import {
   IsPositive,
   IsString,
   Max,
-  Min,
   MinLength,
 } from 'class-validator';
 import { Expose } from 'class-transformer';
@@ -73,15 +72,18 @@ export class CreateRaffleTicket {
   }
 
   private validateSellDate(now: Date) {
-    if (DateTimeUtil.DateAddHours(now, this.VALID_SELL_DIFF_HOURS) > this.sellDate) {
+    if (DateTimeUtil.IsAfter(DateTimeUtil.DateAddHours(now, this.VALID_SELL_DIFF_HOURS), this.sellDate)) {
       throw new Error('invalid sell date');
     }
   }
 
   private validateApplyEndDate(now: Date) {
     if (
-      this.applyEndDate < DateTimeUtil.DateAddHours(now, this.VALID_APPLY_DIFF_HOURS_TO_NOW) ||
-      this.applyEndDate > DateTimeUtil.DateSubtractHours(this.sellDate, this.VALID_APPLY_DIFF_HOURS_TO_SELL_DATE)
+      DateTimeUtil.IsAfter(DateTimeUtil.DateAddHours(now, this.VALID_APPLY_DIFF_HOURS_TO_NOW), this.applyEndDate) ||
+      DateTimeUtil.IsAfter(
+        this.applyEndDate,
+        DateTimeUtil.DateSubtractHours(this.sellDate, this.VALID_APPLY_DIFF_HOURS_TO_SELL_DATE),
+      )
     ) {
       throw new Error('invalid apply end date');
     }

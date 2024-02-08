@@ -12,4 +12,8 @@ export class DateTimeUtil {
   static DateSubtractHours(datetime: Date, hours: number) {
     return dayjs(datetime).subtract(hours, 'hours').toDate();
   }
+
+  static IsAfter(targetDate: Date, diffDate: Date) {
+    return dayjs(targetDate).isAfter(diffDate);
+  }
 }

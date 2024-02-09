@@ -6,7 +6,7 @@ import { UserCoinRepository } from '../../../../src/libs/repository/userPoint/us
 import { UserCoinService } from '../../../../src/customer-api/userPoint/userCoin.service';
 import { CustomError } from '../../../../src/customer-api/filter/CustomError';
 
-describe('UserPointService', () => {
+describe('UserCoinService', () => {
   let userCoinEntityRepository: Repository<UserCoinEntity>;
   let userCoinRepository: UserCoinRepository;
 

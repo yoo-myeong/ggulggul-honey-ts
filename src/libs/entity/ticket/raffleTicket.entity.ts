@@ -43,20 +43,27 @@ export class RaffleTicketEntity extends BaseTimeEntity {
 
   @Column({
     type: 'timestamp',
+    precision: 6,
   })
   sellDate: Date;
 
-  @Column()
+  @Column({
+    type: 'timestamp',
+    precision: 6,
+  })
   applyEndDate: Date;
 
-  @Column()
+  @Column({
+    type: 'timestamp',
+    precision: 6,
+  })
   raffleDate: Date;
 
   private setRaffleDate() {
     this.raffleDate = DateTimeUtil.DateAddHours(this.applyEndDate, this.RAFFLE_DIFF_HOURS_TO_APPLY_END);
   }
 
-  static async create(params: {
+  static create(params: {
     explanation: string;
     originPrice: number;
     salePrice: number;
@@ -65,7 +72,6 @@ export class RaffleTicketEntity extends BaseTimeEntity {
     imageUrls: string[];
     sellDate: Date;
     applyEndDate: Date;
-    raffleDate: Date;
   }) {
     const inst = new RaffleTicketEntity();
     inst.explanation = params.explanation;
@@ -76,7 +82,6 @@ export class RaffleTicketEntity extends BaseTimeEntity {
     inst.imageUrls = params.imageUrls;
     inst.sellDate = params.sellDate;
     inst.applyEndDate = params.applyEndDate;
-    inst.raffleDate = params.raffleDate;
 
     inst.setRaffleDate();
 

@@ -12,6 +12,7 @@ import {
 } from 'class-validator';
 import { Expose } from 'class-transformer';
 import { DateTimeUtil } from '../../util/DateTimeUtil';
+import { RaffleTicketEntity } from '../../entity/ticket/raffleTicket.entity';
 import { of } from '../../util/of';
 
 export class CreateRaffleTicket {
@@ -89,13 +90,6 @@ export class CreateRaffleTicket {
     }
   }
 
-  private validate() {
-    const now = new Date();
-    this.validateSalePrice();
-    this.validateSellDate(now);
-    this.validateApplyEndDate(now);
-  }
-
   static async create(params: {
     explanation: string;
     originPrice: number;
@@ -110,5 +104,25 @@ export class CreateRaffleTicket {
     inst.validate();
 
     return inst;
+  }
+
+  public validate() {
+    const now = new Date();
+    this.validateSalePrice();
+    this.validateSellDate(now);
+    this.validateApplyEndDate(now);
+  }
+
+  toEntity() {
+    return RaffleTicketEntity.create({
+      explanation: this.explanation,
+      originPrice: this.originPrice,
+      salePrice: this.salePrice,
+      title: this.title,
+      quantity: this.quantity,
+      imageUrls: this.imageUrls,
+      sellDate: this.sellDate,
+      applyEndDate: this.applyEndDate,
+    });
   }
 }

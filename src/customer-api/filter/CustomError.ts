@@ -2,13 +2,15 @@ import { ErrorCode } from '../../libs/error/errorCode';
 import { statusCodeByErrorCode } from '../../libs/error/statusCodeByErrorCode';
 
 export class CustomError extends Error {
+  private static readonly errName = 'custom error';
+
   private readonly _code: ErrorCode;
 
   private readonly _error?: Error;
 
   constructor(code: ErrorCode, message: string, err?: Error) {
     super(message);
-    this.name = this.constructor.name;
+    this.name = CustomError.errName;
     this._code = code;
     this._error = err;
   }
@@ -18,6 +20,6 @@ export class CustomError extends Error {
   }
 
   public static isCustomError(error: Error): error is CustomError {
-    return error.name === this.constructor.name;
+    return error.name === CustomError.errName;
   }
 }

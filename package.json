@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit --reporters=default",
     "build": "tsc",
-    "start:local": "npm run build && NODE_ENV=local node dist/src/api/index.js"
+    "start:local": "npm run build && NODE_ENV=local node dist/src/customer-api/index.js"
   },
   "keywords": [],
   "author": "",

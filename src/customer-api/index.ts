@@ -9,6 +9,7 @@ import { IoRedis } from '../libs/redis/IoRedis';
 import { Config } from '../libs/config/config';
 import './test/test.controller';
 import './mall/mall.controller';
+import './ticket/raffle-ticket.controller';
 
 export const handler = async () => {
   await TypeOrm.connect(MYSQL);
@@ -17,7 +18,7 @@ export const handler = async () => {
   const server = new InversifyExpressServer(getApiContainer());
   const { app } = new App(server);
 
-  app.listen(Config.cast('APP_PORT').getParsedInt());
+  app.listen(Config.cast('APP_PORT').getParsedInt(), () => console.log('server start'));
 };
 
 handler();

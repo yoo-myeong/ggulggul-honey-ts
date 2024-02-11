@@ -2,9 +2,9 @@ import { inject, injectable } from 'inversify';
 import { Repository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
 import { UserPointLogEntity } from '../../entity/userPoint/userPointLog.entity';
-import { CustomError } from '../../../customer-api/filter/CustomError';
+import { CustomError } from '../../error/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
-import { InjectType } from '../../config/InjectType';
+import { InjectType } from '../../iocContainer/InjectType';
 import { GetUserPointSumResult } from './dto/getUserPointSum.dto';
 
 @injectable()

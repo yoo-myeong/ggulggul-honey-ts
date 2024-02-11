@@ -2,9 +2,9 @@ import { inject, injectable } from 'inversify';
 import { In, IsNull, Not, Repository } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { UserCoinEntity } from '../../entity/userPoint/userCoin.entity';
-import { CustomError } from '../../../customer-api/filter/CustomError';
+import { CustomError } from '../../error/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
-import { InjectType } from '../../config/InjectType';
+import { InjectType } from '../../iocContainer/InjectType';
 
 @injectable()
 export class UserCoinRepository {

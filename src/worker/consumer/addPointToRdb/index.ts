@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { SQSHandler, SQSEvent } from 'aws-lambda';
-import { getWorkerContainer } from '../../config/getWorkerContainer';
+import { getWorkerContainer } from '../../iocContainer/getWorkerContainer';
 import { AddPointToRdbService } from '../../service/addPointToRdb.service';
 
 export const handler: SQSHandler = async (sqsEvent: SQSEvent) => {

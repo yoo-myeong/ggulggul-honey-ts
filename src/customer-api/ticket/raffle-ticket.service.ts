@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { Repository } from 'typeorm';
-import { InjectType } from '../../libs/config/InjectType';
+import { InjectType } from '../../libs/iocContainer/InjectType';
 import { RaffleTicketEntity } from '../../libs/entity/ticket/raffleTicket.entity';
 import { CreateRaffleTicket } from '../../libs/domain/ticket/CreateRaffleTicket';
 

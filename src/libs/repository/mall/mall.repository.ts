@@ -1,8 +1,8 @@
 import { inject, injectable } from 'inversify';
 import { Repository } from 'typeorm';
-import { InjectType } from '../../config/InjectType';
+import { InjectType } from '../../iocContainer/InjectType';
 import { MallEntity } from '../../entity/mall/mall.entity';
-import { CustomError } from '../../../customer-api/filter/CustomError';
+import { CustomError } from '../../error/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
 
 @injectable()

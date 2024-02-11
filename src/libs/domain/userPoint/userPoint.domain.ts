@@ -1,4 +1,4 @@
-import { CustomError } from '../../../customer-api/filter/CustomError';
+import { CustomError } from '../../error/filter/CustomError';
 import { ErrorCode } from '../../error/errorCode';
 import { UserPointLogEntity } from '../../entity/userPoint/userPointLog.entity';
 import { UserPointLogCreatedByEnum } from '../../entity/userPoint/enum/UserPointLogCreatedBy.enum';

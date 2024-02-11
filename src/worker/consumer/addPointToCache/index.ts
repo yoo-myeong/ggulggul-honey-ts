@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { SQSHandler, SQSEvent } from 'aws-lambda';
-import { getWorkerContainer } from '../../config/getWorkerContainer';
+import { getWorkerContainer } from '../../iocContainer/getWorkerContainer';
 import { UserPointCache } from '../../../libs/cache/userPoint.cache';
 import { IoRedis } from '../../../libs/redis/IoRedis';
 import { TypeOrm } from '../../../libs/repository/TypeOrm';

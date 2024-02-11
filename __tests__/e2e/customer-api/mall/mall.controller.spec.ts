@@ -4,7 +4,7 @@ import supertest from 'supertest';
 import { instanceToPlain } from 'class-transformer';
 import { TypeOrm } from '../../../../src/libs/repository/TypeOrm';
 import { getMySqlTypeOrmTestOption } from '../../../integration/getMySqlTypeOrmTestOption';
-import { getApiContainer } from '../../../../src/customer-api/config/getApiContainer';
+import { getApiContainer } from '../../../../src/customer-api/iocContainer/getApiContainer';
 import { App } from '../../../../src/customer-api/App';
 import { MallEntity } from '../../../../src/libs/entity/mall/mall.entity';
 

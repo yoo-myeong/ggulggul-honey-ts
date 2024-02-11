@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import 'reflect-metadata';
 import { InversifyExpressServer } from 'inversify-express-utils';
-import { getApiContainer } from './config/getApiContainer';
+import { getApiContainer } from './iocContainer/getApiContainer';
 import { MYSQL, REDIS } from '../libs/config/configContainer';
 import { App } from './App';
 import { TypeOrm } from '../libs/repository/TypeOrm';

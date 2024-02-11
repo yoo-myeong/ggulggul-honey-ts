@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { getLibContainer } from '../../libs/config/getLibContainer';
+import { getLibContainer } from '../../libs/iocContainer/getLibContainer';
 import { MallService } from '../mall/mall.service';
 import { RaffleTicketService } from '../ticket/raffle-ticket.service';
 

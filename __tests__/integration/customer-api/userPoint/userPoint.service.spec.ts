@@ -6,7 +6,7 @@ import { TypeOrm } from '../../../../src/libs/repository/TypeOrm';
 import { getMySqlTypeOrmTestOption } from '../../getMySqlTypeOrmTestOption';
 import { AddPointParam } from '../../../../src/customer-api/userPoint/dto/AddPointParam';
 import { UserPointService } from '../../../../src/customer-api/userPoint/userPoint.service';
-import { CustomError } from '../../../../src/customer-api/filter/CustomError';
+import { CustomError } from '../../../../src/libs/error/filter/CustomError';
 import { UsePointParam } from '../../../../src/customer-api/userPoint/dto/UsePointParam';
 
 describe('UserPointService', () => {

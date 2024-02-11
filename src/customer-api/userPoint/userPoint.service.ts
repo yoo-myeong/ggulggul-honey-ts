@@ -3,7 +3,7 @@ import { UserPointRepository } from '../../libs/repository/userPoint/userPoint.r
 import { AddPointParam } from './dto/AddPointParam';
 import { UserPointDomain } from '../../libs/domain/userPoint/userPoint.domain';
 import { UserPointLogCreatedByEnum } from '../../libs/entity/userPoint/enum/UserPointLogCreatedBy.enum';
-import { CustomError } from '../filter/CustomError';
+import { CustomError } from '../../libs/error/filter/CustomError';
 import { ErrorCode } from '../../libs/error/errorCode';
 import { UsePointParam } from './dto/UsePointParam';
 

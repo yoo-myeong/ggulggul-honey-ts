@@ -1,5 +1,5 @@
-import { ErrorCode } from '../../libs/error/errorCode';
-import { statusCodeByErrorCode } from '../../libs/error/statusCodeByErrorCode';
+import { ErrorCode } from '../errorCode';
+import { statusCodeByErrorCode } from '../statusCodeByErrorCode';
 
 export class CustomError extends Error {
   private static readonly errName = 'custom error';

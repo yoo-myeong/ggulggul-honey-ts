@@ -4,7 +4,7 @@ import { getMySqlTypeOrmTestOption } from '../../getMySqlTypeOrmTestOption';
 import { UserCoinEntity } from '../../../../src/libs/entity/userPoint/userCoin.entity';
 import { UserCoinRepository } from '../../../../src/libs/repository/userPoint/userCoin.repository';
 import { UserCoinService } from '../../../../src/customer-api/userPoint/userCoin.service';
-import { CustomError } from '../../../../src/customer-api/filter/CustomError';
+import { CustomError } from '../../../../src/libs/error/filter/CustomError';
 
 describe('UserCoinService', () => {
   let userCoinEntityRepository: Repository<UserCoinEntity>;

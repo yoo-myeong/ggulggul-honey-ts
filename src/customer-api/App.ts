@@ -1,6 +1,6 @@
 import express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
-import { errorHandler } from './filter/errorHandler';
+import { apiErrorHandler } from '../libs/error/filter/apiErrorHandler';
 
 export class App {
   constructor(private readonly server: InversifyExpressServer) {
@@ -24,6 +24,6 @@ export class App {
   }
 
   private setErrorHandler(app: express.Application) {
-    app.use(errorHandler);
+    app.use(apiErrorHandler);
   }
 }

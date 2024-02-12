@@ -31,6 +31,7 @@ module.exports = {
     'no-empty-function': 'off',
     'lines-between-class-members': 'off',
     'no-return-await': 'off',
+    'no-plusplus': 'off',
   },
   settings: {
     'import/resolver': {

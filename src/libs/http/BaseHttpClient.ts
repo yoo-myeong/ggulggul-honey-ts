@@ -22,38 +22,51 @@ export class BaseHttpClient {
     });
   }
 
-  get = async <T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
-    return this.http.get<T>(url, config);
-  };
+  private async request<T>(config: AxiosRequestConfig): Promise<T> {
+    const response: AxiosResponse<T> = await this.http.request<T>(config);
+    return response.data;
+  }
 
-  post = async <T>(params: {
-    url: string;
-    body: Record<string, unknown>;
-    config?: AxiosRequestConfig;
-  }): Promise<AxiosResponse<T>> => {
-    const { url, body, config } = params;
-    return this.http.post<T>(url, body, config);
-  };
+  public async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    return this.request<T>({
+      ...config,
+      method: 'get',
+      url,
+    });
+  }
 
-  patch = async <T>(params: {
-    url: string;
-    body: Record<string, unknown>;
-    config?: AxiosRequestConfig;
-  }): Promise<AxiosResponse<T>> => {
-    const { url, body, config } = params;
-    return this.http.patch<T>(url, body, config);
-  };
+  public async post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
+    return this.request<T>({
+      ...config,
+      method: 'post',
+      url,
+      data,
+    });
+  }
 
-  put = async <T>(params: {
-    url: string;
-    body: Record<string, unknown>;
-    config?: AxiosRequestConfig;
-  }): Promise<AxiosResponse<T>> => {
-    const { url, body, config } = params;
-    return this.http.put<T>(url, body, config);
-  };
+  public async put<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
+    return this.request<T>({
+      ...config,
+      method: 'put',
+      url,
+      data,
+    });
+  }
 
-  delete = async <T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
-    return this.http.delete<T>(url, config);
-  };
+  public async patch<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
+    return this.request<T>({
+      ...config,
+      method: 'patch',
+      url,
+      data,
+    });
+  }
+
+  public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    return this.request<T>({
+      ...config,
+      method: 'delete',
+      url,
+    });
+  }
 }

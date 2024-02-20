@@ -5,7 +5,7 @@ import { Config } from '../config/config';
 import { SendMessageParam } from './dto/SendMessageParam';
 
 @injectable()
-export class SqsHandler {
+export class SqsProducer {
   private readonly producer = Producer.create({
     queueUrl: Config.cast('SQS_URL').getString(),
     region: Config.cast('SQS_REGION').getString(),

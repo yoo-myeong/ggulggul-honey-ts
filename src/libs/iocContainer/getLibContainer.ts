@@ -9,6 +9,7 @@ import { MallEntity } from '../entity/mall/mall.entity';
 import { UserCoinEntity } from '../entity/userPoint/userCoin.entity';
 import { UserPointLogEntity } from '../entity/userPoint/userPointLog.entity';
 import { RaffleTicketEntity } from '../entity/ticket/raffleTicket.entity';
+import { SqsProducer } from '../sqs/SqsProducer';
 
 export const getLibContainer = () => {
   const container = new Container();
@@ -26,6 +27,9 @@ export const getLibContainer = () => {
   container.bind(UserPointRepository).to(UserPointRepository);
   container.bind(UserCoinRepository).to(UserCoinRepository);
   container.bind(MallRepository).to(MallRepository);
+
+  // sqs
+  container.bind(SqsProducer).to(SqsProducer);
 
   return container;
 };

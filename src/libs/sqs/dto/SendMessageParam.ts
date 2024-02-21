@@ -6,9 +6,9 @@ export class SendMessageParam {
   private _groupId?: string;
   private _deduplicationId?: string;
 
-  static create(params: { id: string; body: string; groupId?: string; deduplicationId?: string }) {
+  static create(params: { id?: string; body: string; groupId?: string; deduplicationId?: string }) {
     const inst = new SendMessageParam();
-    inst._id = params.id;
+    inst._id = params.id ?? '0';
     inst._body = params.body;
     inst._groupId = params.groupId;
     inst._deduplicationId = params.deduplicationId;

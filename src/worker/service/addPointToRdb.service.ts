@@ -3,6 +3,8 @@ import { UserCoinRepository } from '../../libs/repository/userPoint/userCoin.rep
 import { UserPointRepository } from '../../libs/repository/userPoint/userPoint.repository';
 import { UserPointLogEntity } from '../../libs/entity/userPoint/userPointLog.entity';
 import { UserPointLogCreatedByEnum } from '../../libs/entity/userPoint/enum/UserPointLogCreatedBy.enum';
+import { SqsProducer } from '../../libs/sqs/SqsProducer';
+import { SendMessageParam } from '../../libs/sqs/dto/SendMessageParam';
 
 @injectable()
 export class AddPointToRdbService {
@@ -12,6 +14,9 @@ export class AddPointToRdbService {
 
     @inject(UserPointRepository)
     private readonly userPointRepository: UserPointRepository,
+
+    @inject(SqsProducer)
+    private readonly sqsProducer: SqsProducer,
   ) {}
 
   async addPointByCoinIds(coinIds: number[]) {
@@ -26,6 +31,16 @@ export class AddPointToRdbService {
           createdById: e.id.toString(),
         }),
       ),
+    );
+
+    await this.sqsProducer.sendMessage(
+      coins.map((e) => {
+        return SendMessageParam.create({
+          body: JSON.stringify({
+            userId: e.userId,
+          }),
+        });
+      }),
     );
   }
 }

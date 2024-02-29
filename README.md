@@ -43,6 +43,6 @@
 
 ## 목업
 
-![img.png](img.png)
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
+![img.png](posts/img.png)
+![img_1.png](posts/img_1.png)
+![img_2.png](posts/img_2.png)

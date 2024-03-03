@@ -1,4 +1,5 @@
 import { Repository } from 'typeorm';
+import sinon from 'sinon';
 import { TypeOrm } from '../../../../src/libs/repository/TypeOrm';
 import { getMySqlTypeOrmTestOption } from '../../getMySqlTypeOrmTestOption';
 import { UserCoinEntity } from '../../../../src/libs/entity/userPoint/userCoin.entity';
@@ -7,10 +8,13 @@ import { UserPointRepository } from '../../../../src/libs/repository/userPoint/u
 import { CustomError } from '../../../../src/libs/error/filter/CustomError';
 import { AddPointToRdbService } from '../../../../src/worker/service/addPointToRdb.service';
 import { UserCoinRepository } from '../../../../src/libs/repository/userPoint/userCoin.repository';
+import { SqsProducer } from '../../../../src/libs/sqs/SqsProducer';
+import { SqsProducerStub } from '../../../stub/SqsProducer.stub';
 
 describe('AddPointToRdbService', () => {
   let coinEntityRepository: Repository<UserCoinEntity>;
   let pointLogEntityRepository: Repository<UserPointLogEntity>;
+  let sqsProducer: SqsProducer;
 
   beforeAll(async () => {
     await TypeOrm.connect(getMySqlTypeOrmTestOption());
@@ -22,10 +26,12 @@ describe('AddPointToRdbService', () => {
   beforeEach(async () => {
     await coinEntityRepository.delete({});
     await pointLogEntityRepository.delete({});
+    sqsProducer = new SqsProducerStub();
   });
 
   afterAll(async () => {
     await TypeOrm.disconnect();
+    sinon.reset();
   });
 
   it('코인을 조회해서 발급 포인트를 적립시킨다', async () => {
@@ -35,7 +41,7 @@ describe('AddPointToRdbService', () => {
     });
     const { id } = await coinEntityRepository.save(coinEntity);
     const pointLogRepository = new UserPointRepository(pointLogEntityRepository);
-    const sut = new AddPointToRdbService(new UserCoinRepository(coinEntityRepository), pointLogRepository);
+    const sut = new AddPointToRdbService(new UserCoinRepository(coinEntityRepository), pointLogRepository, sqsProducer);
 
     await sut.addPointByCoinIds([id]);
     const [{ sum }] = await pointLogRepository.getUserPointSumByUserIds([coinEntity.userId]);
@@ -47,6 +53,7 @@ describe('AddPointToRdbService', () => {
     const sut = new AddPointToRdbService(
       new UserCoinRepository(coinEntityRepository),
       new UserPointRepository(pointLogEntityRepository),
+      sqsProducer,
     );
 
     await expect(sut.addPointByCoinIds([1])).rejects.toThrow(CustomError);
@@ -58,7 +65,7 @@ describe('AddPointToRdbService', () => {
     });
     const { id } = await coinEntityRepository.save(coinEntity);
     const pointLogRepository = new UserPointRepository(pointLogEntityRepository);
-    const sut = new AddPointToRdbService(new UserCoinRepository(coinEntityRepository), pointLogRepository);
+    const sut = new AddPointToRdbService(new UserCoinRepository(coinEntityRepository), pointLogRepository, sqsProducer);
 
     await expect(sut.addPointByCoinIds([id])).rejects.toThrow(CustomError);
   });

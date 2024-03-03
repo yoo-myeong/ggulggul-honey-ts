@@ -6,7 +6,8 @@
   "scripts": {
     "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit --reporters=default",
     "build": "tsc",
-    "start:local": "npm run build && NODE_ENV=local node dist/src/customer-api/index.js"
+    "start:customal:local": "npm run build && NODE_ENV=local node dist/src/customer-api/index.js",
+    "start:buisness:local":"npm run build && NODE_ENV=local node dist/src/business-api/index.js"
   },
   "keywords": [],
   "author": "",
@@ -41,7 +42,7 @@
     "@types/express": "^4.17.21",
     "@types/ioredis": "^5.0.0",
     "@types/jest": "^29.5.11",
-    "@types/sinon": "^17.0.2",
+    "@types/sinon": "^17.0.3",
     "@types/supertest": "^6.0.2",
     "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "^6.9.1",

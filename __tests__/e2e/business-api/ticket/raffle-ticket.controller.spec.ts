@@ -3,10 +3,10 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import supertest from 'supertest';
 import { TypeOrm } from '../../../../src/libs/repository/TypeOrm';
 import { getMySqlTypeOrmTestOption } from '../../../integration/getMySqlTypeOrmTestOption';
-import { getApiContainer } from '../../../../src/customer-api/iocContainer/getApiContainer';
-import { App } from '../../../../src/customer-api/App';
-import '../../../../src/customer-api/ticket/raffle-ticket.controller';
+import { getApiContainer } from '../../../../src/business-api/iocContainer/getApiContainer';
+import { App } from '../../../../src/business-api/App';
 import { DateTimeUtil } from '../../../../src/libs/util/DateTimeUtil';
+import '../../../../src/business-api/ticket/raffle-ticket.controller';
 
 describe('/raffle-ticket', () => {
   let app: express.Application;

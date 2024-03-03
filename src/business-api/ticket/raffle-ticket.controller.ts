@@ -1,7 +1,7 @@
 import { controller, httpPost, HttpResponseMessage, requestBody } from 'inversify-express-utils';
 import { inject } from 'inversify';
-import { RaffleTicketService } from './raffle-ticket.service';
 import { CreateRaffleTicketRequest, ICreateRaffleTicketRequest } from './dto/CreateRaffleTicketRequest';
+import { RaffleTicketService } from './raffle-ticket.service';
 
 @controller('/raffle-ticket')
 export class RaffleTicketController {

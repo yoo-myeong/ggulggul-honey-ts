@@ -4,7 +4,7 @@ import { TypeOrm } from '../../../../src/libs/repository/TypeOrm';
 import { getMySqlTypeOrmTestOption } from '../../getMySqlTypeOrmTestOption';
 import { CreateRaffleTicket } from '../../../../src/libs/domain/ticket/CreateRaffleTicket';
 import { DateTimeUtil } from '../../../../src/libs/util/DateTimeUtil';
-import { RaffleTicketService } from '../../../../src/customer-api/ticket/raffle-ticket.service';
+import { RaffleTicketService } from '../../../../src/business-api/ticket/raffle-ticket.service';
 
 describe('RaffleTicketService', () => {
   let raffleTicketEntityRepository: Repository<RaffleTicketEntity>;
